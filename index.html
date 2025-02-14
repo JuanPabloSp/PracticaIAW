@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Favicon-->
+    <link rel="icon" type="img/png" href="img/icon.png">
+    <!--Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!--Fuente Ubuntu-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <!--Fuente Pixel-->
+    <link href="https://fonts.cdnfonts.com/css/sf-pixelate" rel="stylesheet">
+    <title>Porfolio</title>
+    <style>
+        body {
+            /*  background: linear-gradient(to left, #000066, #0000CC);*/
+            color: white;
+
+
+
+        }
+
+        p {
+            text-wrap: pretty;
+        }
+
+        .nav-link {
+            font-size: 23px;
+            z-index: 1;
+        }
+
+
+        #foto {
+            height: 350px;
+            width: 350px;
+            float: right;
+            border-radius: 50%;
+            border: white 10px solid;
+        }
+
+        .nav-link {
+            color: white;
+        }
+
+        .nav-link:hover {
+            color: #FFED00;
+
+        }
+
+        /*
+        #disponibilidad {
+            display: block;
+            white-space: nowrap;
+            border-radius: 15px;
+            width: 23ch;
+            margin-left: 10px;
+            background-color: #1F2937;
+            border:  green 5px solid;
+
+        }
+*/
+        #myname {
+            display: block;
+            white-space: nowrap;
+            border-right: 40px solid;
+            width: 23ch;
+
+            animation: typing 2s steps(23),
+                blink .5s infinite step-end alternate;
+            overflow: hidden;
+        }
+
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent
+            }
+        }
+
+        #sobreMi,
+        #proyectos,
+        #experiencia,
+        #HabiYcompe {
+            scroll-margin-top: 20px;
+            /* Ajusta el margen superior al hacer scroll */
+        }
+
+        .c1 {
+            /* arriba | derecha | abajo | izquierda */
+            padding: 30px 50px 200px 50px;
+            font-size: 25px;
+            background-color: black;
+
+
+        }
+
+        .c2 {
+            height: 1080px;
+            padding: 30px 50px 200px 50px;
+            font-size: 25px;
+
+        }
+
+        .c3 {
+            height: 1500px;
+            padding: 30px 50px 200px 50px;
+            background-color: black;
+        }
+
+        /*.c1{
+            background-image: url(img/art/img5.jpg);
+            background-size: 100%;
+            background-position: center;
+        }
+        .c2{
+            background-image: url(img/art/img7.jpg);
+            background-size: 100%;
+            background-position: center;
+        }*/
+
+        /*Estilos font*/
+        .ubuntu-light {
+            font-family: "Ubuntu", serif;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+
+        .ubuntu-regular {
+            font-family: "Ubuntu", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .ubuntu-medium {
+            font-family: "Ubuntu", serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .ubuntu-bold {
+            font-family: "Ubuntu", serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .ubuntu-light-italic {
+            font-family: "Ubuntu", serif;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .ubuntu-regular-italic {
+            font-family: "Ubuntu", serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .ubuntu-medium-italic {
+            font-family: "Ubuntu", serif;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .ubuntu-bold-italic {
+            font-family: "Ubuntu", serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+    </style>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: black;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="img/icon.png" alt="JPlogo" width="130">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link ubuntu-bold" aria-current="page" href="#sobreMi">Sobre Mi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ubuntu-bold" aria-current="page" href="#HabiYcompe">Habilidades y
+                                Competencias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ubuntu-bold" aria-current="page" href="#experiencia">Experiencia
+                                Laboral</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ubuntu-bold" aria-current="page" href="#proyectos">Proyectos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid" style="background-color: black;padding-top: 20px;padding-bottom: 50px;">
+        <!--
+        <div class="row " id="disponibilidad">
+            <p> Disponible para trabajar </p>
+        </div>
+        -->
+        <h1 class="text-start ubuntu-medium" id="myname"
+            style="padding-top: 20px;padding-bottom: 15px; font-size: 80px; font-weight: bold;">Juan Pablo Servin
+            Paredes</h1>
+        <h2 class="text-start ubuntu-regular" style="padding-bottom: 15px;">Admistrador en Sistemas informaticos en
+            Red
+        </h2>
+        <a type="button" href="mailto:juanpabloservinparedes2003@gmail.com" target="_blank" role="link"
+            class="btn btn-lg" style="background-color:#FFED00; font-weight: bold;"><i class="bi bi-envelope-arrow-up"
+                style="padding-right:10px ;"></i>
+            Contáctame</a>
+        <a type="button" href="https://www.linkedin.com/in/juanpabloservin/" target="_blank" role="link"
+            class="btn btn-lg" style="background-color:white; font-weight: bold;"><i class="bi bi-linkedin"
+                style="padding-right:10px ;"></i>LinkedIn</a>
+    </div>
+    <!--Apartado Sobre mi-->
+
+    <section id="sobreMi" class="container-fluid c1">
+        <div class="row">
+            <!--ARREGLAR PADDING DEL TITULO-->
+            <h1 class="text-end ubuntu-bold" style=" padding-right: 5%;font-size: 55px;"><i class="bi bi-person-check"
+                    style="padding-right:10px ;"></i>Sobre Mi</h1>
+        </div>
+        <div class="row">
+            <p class="ubuntu-regular">
+                <img src="img/FotoCV.jpg" id="foto" alt="Fotografía de Juan Pablo Servin Paredes">
+                Soy una persona entusiasta con un firme compromiso con el aprendizaje continuo, siempre en busca de
+                nuevas oportunidades para ampliar mis conocimientos y habilidades. Me caracterizo por un enfoque
+                proactivo a la hora de afrontar desafíos, analizando problemas con pensamiento crítico y aplicando
+                soluciones efectivas que garanticen resultados precisos y profesionales.
+
+                Además, poseo una gran capacidad de comunicación, lo que me permite interactuar de manera clara y
+                eficiente en distintos entornos, favoreciendo el trabajo en equipo y la colaboración. Disfruto
+                compartiendo conocimientos y experiencias con quienes me rodean, promoviendo un ambiente de
+                crecimiento
+                mutuo donde la innovación y el aprendizaje sean pilares fundamentales.
+                Mi compromiso con la excelencia y la mejora continua me impulsa a mantenerme actualizado en las
+                tendencias y avances de mi campo, siempre con el objetivo de aportar valor a cada proyecto en el que
+                participo.
+            </p>
+        </div>
+    </section>
+    <!--Apartado de mis Habilidades-->
+    <div class="container-fluid c2" style="padding: 45px;color:black;">
+        <section id="HabiYcompe"></section>
+        <div class="row">
+            <h2 class="text-end ubuntu-bold" style="padding-left: 10%;font-size: 55px;">Habilidades y
+                Competencias</h2>
+        </div>
+        <div class="row text-end">
+            <ul class="text-end list-unstyled">
+                <li> Resolución avanzada de problemas en entornos de TI.</li>
+                <li>Administración de bases de datos</li>
+                <li>Monitorización y optimización de sistemas.</li>
+                <li>Programación básica y scripting.</li>
+                <li>Gestión de proyectos tecnológicos.</li>
+                <li>rabajo en equipo y comunicación efectiva.</li>
+                <li>Capacidad de aprendizaje continuo en tecnologías emergentes.</li>
+            </ul>
+        </div>
+        <section id="experiencia"></section>
+        <div class="row">
+            <h2 class="text-start ubuntu-bold" style="font-size: 55px;">Experiencia Laboral
+            </h2>
+        </div>
+        <div class="row text-start ">
+            <h3 class="ubuntu-medium">02/2021-03/2021</h3>
+            <h3 class="ubuntu-medium"> Estudiante en prácticas</h3>
+            <h3 class="ubuntu-medium">UTIC - Sede Empresariales | Asunción, Paraguay</h3>
+            <ul class="list-unstyled">
+                <li>Configuración de ordenadores con Linux para aulas de clase.</li>
+                <li>Establecimiento de conexiones de red entre salas.</li>
+                <li>Reparación de hardware de ordenadores de docentes.</li>
+                <li>Configuración de aplicaciones y resolución de dudas.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid c3" style="padding: 45px;text-align: justi ;background-color: black;color:white;">
+        <section id="proyectos"></section>
+        <div class="row">
+            <h2 class="text-center ubuntu-bold" style="font-size: 55px;">Proyectos</h2>
+        </div>
+
+        <div class="row text-center">
+            <div class="col">
+                <h3 class="ubuntu-medium">Interfaz Aracde🕹</h3>
+                <img src="img/capsproyects/gif1.gif" alt="" width="550">
+                <p class="ubuntu-regular" style="text-align: justify;">La interfaz de nuestro sistema arcade ha sido
+                    diseñada para ofrecer una
+                    experiencia intuitiva, rápida y envolvente, manteniendo la esencia de las clásicas máquinas
+                    recreativas. Desde el primer momento, el usuario es recibido con un menú vibrante y dinámico,
+                    inspirado en los icónicos gráficos pixel art de los años 80 y 90, con colores brillantes,
+                    efectos de
+                    neón y animaciones fluidas.
+                    El sistema de navegación es simple y eficiente, los jugadores pueden desplazarse entre las
+                    distintas
+                    categorías de juegos usando un joystick o botones dedicados, permitiendo seleccionar títulos por
+                    género, año de lanzamiento o popularidad.
+                    Cada juego cuenta con una pantalla de vista previa donde se muestra su portada, una breve
+                    descripción y detalles clave como el número de jugadores, desarrollador y fecha de lanzamiento.
+
+            </div>
+            <div class="col">
+                <h3 style="font-family:'SF Pixelate', sans-serif;font-weight: 700;">Web Pixel Car Racer <img
+                        src="img/iconPixelCar.png" alt="" width="28px"></h3>
+                <img src="img/capsproyects/gif2.gif" alt="" width="550">
+                <p class="ubuntu-regular" style="text-align: justify;">página está diseñada para reunir a todos los
+                    apasionados de este increíble
+                    juego de carreras pixeladas. Aquí encontrarás las últimas noticias, guías, trucos y eventos
+                    especiales para mejorar tu experiencia en la pista.
+                    Explora nuestra galería de vehículos personalizados, comparte tus mejores tiempos con la
+                    comunidad y
+                    participa en torneos donde solo los mejores pilotos pueden ganar. Además, descubre secretos
+                    ocultos
+                    y estrategias para optimizar tu auto y dominar cada circuito.
+
+                </p>
+            </div>
+            <div class="col">
+                <h3 class="ubuntu-medium">The Maze Wizard 🧙‍♂️✨ </h3>
+                <img src="img/capsproyects/gif3.gif" alt="" width="550">
+                <p class="ubuntu-regular" style="text-align: justify;">
+                    un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
+                    laberintos llenos de misterios y trampas! Usa tu inteligencia y habilidades mágicas para
+                    encontrar
+                    la salida y llegar al final de cada nivel.
+                    A medida que avances, los laberintos se volverán más complejos, con pasadizos ocultos, portales
+                    mágicos y enemigos que intentarán bloquear tu camino. ¿Podrás resolver cada desafío y completar
+                    tu
+                    misión?
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row text-center">
+            <div class="col">
+                <h3>Arcade</h3>
+                <img src="img/capsproyects/gifArcade.gif" alt="" width="550" height="309">
+                <p class="ubuntu-regular" style="text-align: justify;">
+                    un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
+                    laberintos llenos de misterios y trampas! Usa tu inteligencia y habilidades mágicas para
+                    encontrar
+                    la salida y llegar al final de cada nivel.
+                    A medida que avances, los laberintos se volverán más complejos, con pasadizos ocultos, portales
+                    mágicos y enemigos que intentarán bloquear tu camino. ¿Podrás resolver cada desafío y completar
+                    tu
+                    misión?
+                </p>
+            </div>
+            <div class="col">
+                <h3>Conter-Strike</h3>
+                <img src="img/capsproyects/gifCs2.gif" alt="" width="550">
+                <p class="ubuntu-regular" style="text-align: justify;">
+                    un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
+                    laberintos llenos de misterios y trampas! Usa tu inteligencia y habilidades mágicas para
+                    encontrar
+                    la salida y llegar al final de cada nivel.
+                    A medida que avances, los laberintos se volverán más complejos, con pasadizos ocultos, portales
+                    mágicos y enemigos que intentarán bloquear tu camino. ¿Podrás resolver cada desafío y completar
+                    tu
+                    misión?
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
