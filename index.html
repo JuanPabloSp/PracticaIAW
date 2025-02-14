@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,13 +25,11 @@
         body {
             /*  background: linear-gradient(to left, #000066, #0000CC);*/
             color: white;
-
-
-
+            background-color: black;
         }
 
         p {
-            text-wrap: pretty;
+            overflow-wrap: break-word;
         }
 
         .nav-link {
@@ -42,8 +39,8 @@
 
 
         #foto {
-            height: 350px;
-            width: 350px;
+            height: 370px;
+            width: 370px;
             float: right;
             border-radius: 50%;
             border: white 10px solid;
@@ -73,9 +70,9 @@
         #myname {
             display: block;
             white-space: nowrap;
-            border-right: 40px solid;
+            border-right: 15px solid;
             width: 23ch;
-
+            backdrop-filter: blur(10px);
             animation: typing 2s steps(23),
                 blink .5s infinite step-end alternate;
             overflow: hidden;
@@ -93,6 +90,7 @@
                 border-color: transparent
             }
         }
+
 
         #sobreMi,
         #proyectos,
@@ -112,9 +110,10 @@
         }
 
         .c2 {
-            height: 1080px;
+            height: 1100px;
             padding: 30px 50px 200px 50px;
             font-size: 25px;
+            background-color: white;
 
         }
 
@@ -184,13 +183,25 @@
             font-weight: 700;
             font-style: italic;
         }
+
+        .animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .animate.show {
+            opacity: 1;
+            transform: translateY(0);
+
+        }
     </style>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: black;">
+        <nav class="navbar navbar-expand-lg navbar-dark animate " style="background-color: black;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand animate" href="#">
                     <img src="img/icon.png" alt="JPlogo" width="130">
                 </a>
 
@@ -200,19 +211,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link ubuntu-bold" aria-current="page" href="#sobreMi">Sobre Mi</a>
+                        <li class="nav-item ">
+                            <a class="nav-link ubuntu-bold " aria-current="page" href="#sobreMi">Sobre Mi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ubuntu-bold" aria-current="page" href="#HabiYcompe">Habilidades y
+                            <a class="nav-link ubuntu-bold " aria-current="page" href="#HabiYcompe">Habilidades y
                                 Competencias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ubuntu-bold" aria-current="page" href="#experiencia">Experiencia
+                            <a class="nav-link ubuntu-bold " aria-current="page" href="#experiencia">Experiencia
                                 Laboral</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ubuntu-bold" aria-current="page" href="#proyectos">Proyectos</a>
+                            <a class="nav-link ubuntu-bold " aria-current="page" href="#proyectos">Proyectos</a>
                         </li>
                     </ul>
                 </div>
@@ -225,89 +236,160 @@
             <p> Disponible para trabajar </p>
         </div>
         -->
-        <h1 class="text-start ubuntu-medium" id="myname"
-            style="padding-top: 20px;padding-bottom: 15px; font-size: 80px; font-weight: bold;">Juan Pablo Servin
+
+        <h1 class="text-start  ubuntu-medium animate " id="myname"
+            style="padding-top: 20px;padding-bottom: 15px; font-size: 6vw; font-weight: bold;">Juan Pablo Servin
             Paredes</h1>
-        <h2 class="text-start ubuntu-regular" style="padding-bottom: 15px;">Admistrador en Sistemas informaticos en
+
+        <h2 class="text-start ubuntu-regular animate" style="padding-bottom: 15px;">Admistrador en Sistemas informaticos
+            en
             Red
         </h2>
         <a type="button" href="mailto:juanpabloservinparedes2003@gmail.com" target="_blank" role="link"
-            class="btn btn-lg" style="background-color:#FFED00; font-weight: bold;"><i class="bi bi-envelope-arrow-up"
-                style="padding-right:10px ;"></i>
+            class="btn btn-lg animate" style="background-color:#FFED00; color: black; font-weight: bold;"><i
+                class="bi bi-envelope-arrow-up" style="padding-right:10px ;"></i>
             Contáctame</a>
         <a type="button" href="https://www.linkedin.com/in/juanpabloservin/" target="_blank" role="link"
-            class="btn btn-lg" style="background-color:white; font-weight: bold;"><i class="bi bi-linkedin"
-                style="padding-right:10px ;"></i>LinkedIn</a>
+            class="btn btn-lg animate" style="background-color:white;color: black; font-weight: bold;"><i
+                class="bi bi-linkedin" style="padding-right:10px ;"></i>LinkedIn</a>
     </div>
     <!--Apartado Sobre mi-->
 
-    <section id="sobreMi" class="container-fluid c1">
-        <div class="row">
+    <section id="sobreMi" class="container-fluid c1 ">
+        <hr class="animate">
+        <div class="row animate">
             <!--ARREGLAR PADDING DEL TITULO-->
-            <h1 class="text-end ubuntu-bold" style=" padding-right: 5%;font-size: 55px;"><i class="bi bi-person-check"
-                    style="padding-right:10px ;"></i>Sobre Mi</h1>
+            <h1 class="text-end ubuntu-bold " style=" font-size: 55px; padding-left: 10px;"></i>Sobre Mi</h1>
         </div>
-        <div class="row">
-            <p class="ubuntu-regular">
-                <img src="img/FotoCV.jpg" id="foto" alt="Fotografía de Juan Pablo Servin Paredes">
-                Soy una persona entusiasta con un firme compromiso con el aprendizaje continuo, siempre en busca de
-                nuevas oportunidades para ampliar mis conocimientos y habilidades. Me caracterizo por un enfoque
-                proactivo a la hora de afrontar desafíos, analizando problemas con pensamiento crítico y aplicando
-                soluciones efectivas que garanticen resultados precisos y profesionales.
 
-                Además, poseo una gran capacidad de comunicación, lo que me permite interactuar de manera clara y
-                eficiente en distintos entornos, favoreciendo el trabajo en equipo y la colaboración. Disfruto
-                compartiendo conocimientos y experiencias con quienes me rodean, promoviendo un ambiente de
-                crecimiento
-                mutuo donde la innovación y el aprendizaje sean pilares fundamentales.
-                Mi compromiso con la excelencia y la mejora continua me impulsa a mantenerme actualizado en las
-                tendencias y avances de mi campo, siempre con el objetivo de aportar valor a cada proyecto en el que
-                participo.
-            </p>
+        <div class="row animate">
+            <div class="col">
+
+                <p class="ubuntu-regular">
+                    <img class="img-fluid" src="img/FotoCV.jpg" id="foto" alt="Fotografía de Juan Pablo Servin Paredes">
+                    Soy una persona entusiasta con un firme <b style="color: #FFED00;">compromiso con el aprendizaje
+                        continuo</b>, siempre en busca de
+                    nuevas oportunidades para ampliar mis <b style="color: #FFED00;">conocimientos y habilidades</b>. Me
+                    caracterizo por un enfoque
+                    proactivo a la hora de afrontar desafíos, <b style="color: #FFED00;">analizando problemas con
+                        pensamiento crítico y aplicando
+                        soluciones efectivas</b> que garanticen resultados precisos y profesionales.
+
+                    Además, poseo una gran capacidad de comunicación, lo que me permite interactuar de manera clara y
+                    eficiente en distintos entornos, favoreciendo el <b style="color: #FFED00;">trabajo en equipo y la
+                        colaboración</b>. Disfruto
+                    compartiendo conocimientos y experiencias con quienes me rodean, promoviendo un ambiente de
+                    crecimiento
+                    mutuo donde la innovación y el aprendizaje sean pilares fundamentales.
+                    Mi <b style="color: #FFED00;">compromiso con la excelencia y la mejora continua</b> me impulsa a
+                    mantenerme actualizado en las
+                    tendencias y avances de mi campo, siempre con el objetivo de aportar valor a cada proyecto en el que
+                    participo.
+                </p>
+            </div>
         </div>
     </section>
     <!--Apartado de mis Habilidades-->
     <div class="container-fluid c2" style="padding: 45px;color:black;">
         <section id="HabiYcompe"></section>
-        <div class="row">
-            <h2 class="text-end ubuntu-bold" style="padding-left: 10%;font-size: 55px;">Habilidades y
-                Competencias</h2>
+        <div class="row text-end animate">
+            <!--/* arriba | derecha | abajo | izquierda */-->
+            <div class="col">
+                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="width: 800px;">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <img src="img/carrusel/1.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <img src="img/carrusel/2.png"
+                                class="d-block w-100 " alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/carrusel/3.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <h2 class="text-end ubuntu-bold animate" style="padding-left: 10%;font-size: 55px;">Habilidades y
+                    Competencias</h2>
+                <ul class="text-end list-unstyled">
+                    <li> <b>Resolución avanzada de problemas</b> en entornos de TI.</li>
+                    <li><b>Administración de bases de datos</b></li>
+                    <li><b>Monitorización y optimización de sistemas.</b></li>
+                    <li><b>Programación básica y scripting.</b></li>
+                    <li><b>Gestión de proyectos tecnológicos.</b></li>
+                    <li><b>Trabajo en equipo y comunicación efectiva.</b></li>
+                    <li><b>Capacidad de aprendizaje continuo en tecnologías emergentes.</b></li>
+                </ul>
+            </div>
         </div>
-        <div class="row text-end">
-            <ul class="text-end list-unstyled">
-                <li> Resolución avanzada de problemas en entornos de TI.</li>
-                <li>Administración de bases de datos</li>
-                <li>Monitorización y optimización de sistemas.</li>
-                <li>Programación básica y scripting.</li>
-                <li>Gestión de proyectos tecnológicos.</li>
-                <li>rabajo en equipo y comunicación efectiva.</li>
-                <li>Capacidad de aprendizaje continuo en tecnologías emergentes.</li>
-            </ul>
-        </div>
+        <hr>
         <section id="experiencia"></section>
-        <div class="row">
-            <h2 class="text-start ubuntu-bold" style="font-size: 55px;">Experiencia Laboral
-            </h2>
-        </div>
-        <div class="row text-start ">
-            <h3 class="ubuntu-medium">02/2021-03/2021</h3>
-            <h3 class="ubuntu-medium"> Estudiante en prácticas</h3>
-            <h3 class="ubuntu-medium">UTIC - Sede Empresariales | Asunción, Paraguay</h3>
-            <ul class="list-unstyled">
-                <li>Configuración de ordenadores con Linux para aulas de clase.</li>
-                <li>Establecimiento de conexiones de red entre salas.</li>
-                <li>Reparación de hardware de ordenadores de docentes.</li>
-                <li>Configuración de aplicaciones y resolución de dudas.</li>
-            </ul>
+      
+        <div class="row text-start animate ">
+            <div class="col">
+                <h2 class="text-start ubuntu-bold" style="font-size: 55px;">Experiencia Laboral
+                </h2>
+                <h3 class="ubuntu-medium">02/2021-03/2021</h3>
+                <h3 class="ubuntu-medium"><b> Estudiante en prácticas</b></h3>
+                <h3 class="ubuntu-medium"><b>UTIC - Sede Empresariales</b> | Asunción, Paraguay</h3>
+                <ul class="list-unstyled">
+                    <li>Configuración de ordenadores con Linux para aulas de clase.</li>
+                    <li>Establecimiento de conexiones de red entre salas.</li>
+                    <li>Reparación de hardware de ordenadores de docentes.</li>
+                    <li>Configuración de aplicaciones y resolución de dudas.</li>
+                </ul>
+            </div>
+            <div class="col">
+                <div id="carouselExampleIntervalDos" class="carousel slide" data-bs-ride="carousel" style="width: 800px;">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <img src="img/carrusel/4.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <img src="img/carrusel/5.png"
+                                class="d-block w-100 " alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/carrusel/7.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIntervalDos"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIntervalDos"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container-fluid c3" style="padding: 45px;text-align: justi ;background-color: black;color:white;">
         <section id="proyectos"></section>
-        <div class="row">
+        <div class="row animate">
             <h2 class="text-center ubuntu-bold" style="font-size: 55px;">Proyectos</h2>
         </div>
 
-        <div class="row text-center">
+        <div class="row text-center animate">
             <div class="col">
                 <h3 class="ubuntu-medium">Interfaz Aracde🕹</h3>
                 <img src="img/capsproyects/gif1.gif" alt="" width="550">
@@ -330,7 +412,7 @@
                 <h3 style="font-family:'SF Pixelate', sans-serif;font-weight: 700;">Web Pixel Car Racer <img
                         src="img/iconPixelCar.png" alt="" width="28px"></h3>
                 <img src="img/capsproyects/gif2.gif" alt="" width="550">
-                <p class="ubuntu-regular" style="text-align: justify;">página está diseñada para reunir a todos los
+                <p class="ubuntu-regular" style="text-align: justify;">Página está diseñada para reunir a todos los
                     apasionados de este increíble
                     juego de carreras pixeladas. Aquí encontrarás las últimas noticias, guías, trucos y eventos
                     especiales para mejorar tu experiencia en la pista.
@@ -346,7 +428,7 @@
                 <h3 class="ubuntu-medium">The Maze Wizard 🧙‍♂️✨ </h3>
                 <img src="img/capsproyects/gif3.gif" alt="" width="550">
                 <p class="ubuntu-regular" style="text-align: justify;">
-                    un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
+                    Un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
                     laberintos llenos de misterios y trampas! Usa tu inteligencia y habilidades mágicas para
                     encontrar
                     la salida y llegar al final de cada nivel.
@@ -357,38 +439,54 @@
                 </p>
             </div>
         </div>
-        <hr>
-        <div class="row text-center">
+        <hr class="animate">
+        <div class="row text-center animate">
             <div class="col">
                 <h3>Arcade</h3>
                 <img src="img/capsproyects/gifArcade.gif" alt="" width="550" height="309">
                 <p class="ubuntu-regular" style="text-align: justify;">
-                    un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
-                    laberintos llenos de misterios y trampas! Usa tu inteligencia y habilidades mágicas para
-                    encontrar
-                    la salida y llegar al final de cada nivel.
-                    A medida que avances, los laberintos se volverán más complejos, con pasadizos ocultos, portales
-                    mágicos y enemigos que intentarán bloquear tu camino. ¿Podrás resolver cada desafío y completar
-                    tu
-                    misión?
+                    En el marco de nuestra formación en el ciclo de Administración de Sistemas Informáticos en Red
+                    (ASIR), un grupo de alumnos nos embarcamos en un proyecto emocionante: la creación de un arcade
+                    completamente funcional. Esta iniciativa nos permitió aplicar nuestros conocimientos en hardware,
+                    software y redes, además de fortalecer nuestra capacidad de trabajo en equipo y gestión de
+                    proyectos.Nuestro
                 </p>
             </div>
             <div class="col">
-                <h3>Conter-Strike</h3>
+                <h3>Counter-Strike 2</h3>
                 <img src="img/capsproyects/gifCs2.gif" alt="" width="550">
                 <p class="ubuntu-regular" style="text-align: justify;">
-                    un desafiante juego en el que controlarás a un poderoso mago que debe atravesar intrincados
-                    laberintos llenos de misterios y trampas! Usa tu inteligencia y habilidades mágicas para
-                    encontrar
-                    la salida y llegar al final de cada nivel.
-                    A medida que avances, los laberintos se volverán más complejos, con pasadizos ocultos, portales
-                    mágicos y enemigos que intentarán bloquear tu camino. ¿Podrás resolver cada desafío y completar
-                    tu
-                    misión?
+                    Los alumnos del ciclo formativo de Administración de Sistemas Informáticos en Red (ASIR) hemos
+                    organizado un torneo de Counter-Strike 2 en LAN, un evento que no solo busca la competencia y el
+                    entretenimiento, sino también fortalecer el trabajo en equipo y aplicar nuestros conocimientos en
+                    redes y administración de servidores.Desde la planificación hasta la ejecución, este torneo ha sido
+                    un desafío que nos ha permitido integrar habilidades técnicas y organizativas.
                 </p>
             </div>
         </div>
     </div>
+    <footer class="bg-body-tertiary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3 animate" style="background-color: white; color:black;">
+            © 2025 juanpasp.dev Casi todos los derechos reservados
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <script>
+        const elements = document.querySelectorAll('.animate');
+        function checkVisibility() {
+            elements.forEach((element) => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    element.classList.add('show');
+                } else {
+                    element.classList.remove('show');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+    </script>
 </body>
 
 </html>
