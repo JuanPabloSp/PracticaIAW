@@ -40,9 +40,6 @@
 
 
         #foto {
-            height: 370px;
-            width: 370px;
-            float: right;
             border-radius: 50%;
             border: white 10px solid;
         }
@@ -104,14 +101,14 @@
         .c1 {
             /* arriba | derecha | abajo | izquierda */
             padding: 30px 50px 200px 50px;
-            font-size: 25px;
+            /*font-size: 25px;*/
             background-color: black;
 
 
         }
 
         .c2 {
-            height: 1100px;
+            /*height: 1100px;*/
             padding: 30px 50px 200px 50px;
             font-size: 25px;
             background-color: white;
@@ -119,21 +116,11 @@
         }
 
         .c3 {
-            height: 1500px;
+            /*height: 1500px;*/
             padding: 30px 50px 200px 50px;
             background-color: black;
         }
 
-        /*.c1{
-            background-image: url(img/art/img5.jpg);
-            background-size: 100%;
-            background-position: center;
-        }
-        .c2{
-            background-image: url(img/art/img7.jpg);
-            background-size: 100%;
-            background-position: center;
-        }*/
 
         /*Estilos font*/
         .ubuntu-light {
@@ -257,55 +244,53 @@
     <!--Apartado Sobre mi-->
 
     <section id="sobreMi" class="container-fluid c1 ">
-        <hr class="animate">
-        <div class="row animate">
-            <!--ARREGLAR PADDING DEL TITULO-->
-            <h1 class="text-end ubuntu-bold " style=" font-size: 55px; padding-left: 10px;"></i>Sobre Mi</h1>
-        </div>
+        <hr class="animate" style="background-color: black;">
+        <div class="row g-5 position-relative ">
+            <div class="col-md-12 col-lg-9 p-5 ps-md-0 order-2 order-sm-2 order-md-1">
+              <p class="ubuntu-regular fs-4 justify-content mb-3 ">
+                Soy una persona entusiasta con un firme <b style="color: #FFED00;">compromiso con el aprendizaje
+                    continuo</b>, siempre en busca de
+                nuevas oportunidades para ampliar mis <b style="color: #FFED00;">conocimientos y habilidades</b>. Me
+                caracterizo por un enfoque
+                proactivo a la hora de afrontar desafíos, <b style="color: #FFED00;">analizando problemas con
+                    pensamiento crítico y aplicando
+                    soluciones efectivas</b> que garanticen resultados precisos y profesionales.
 
-        <div class="row animate">
-            <div class="col">
-
-                <p class="ubuntu-regular">
-                    <img class="img-fluid" src="img/FotoCV.jpg" id="foto" alt="Fotografía de Juan Pablo Servin Paredes">
-                    Soy una persona entusiasta con un firme <b style="color: #FFED00;">compromiso con el aprendizaje
-                        continuo</b>, siempre en busca de
-                    nuevas oportunidades para ampliar mis <b style="color: #FFED00;">conocimientos y habilidades</b>. Me
-                    caracterizo por un enfoque
-                    proactivo a la hora de afrontar desafíos, <b style="color: #FFED00;">analizando problemas con
-                        pensamiento crítico y aplicando
-                        soluciones efectivas</b> que garanticen resultados precisos y profesionales.
-
-                    Además, poseo una gran capacidad de comunicación, lo que me permite interactuar de manera clara y
-                    eficiente en distintos entornos, favoreciendo el <b style="color: #FFED00;">trabajo en equipo y la
-                        colaboración</b>. Disfruto
-                    compartiendo conocimientos y experiencias con quienes me rodean, promoviendo un ambiente de
-                    crecimiento
-                    mutuo donde la innovación y el aprendizaje sean pilares fundamentales.
-                    Mi <b style="color: #FFED00;">compromiso con la excelencia y la mejora continua</b> me impulsa a
-                    mantenerme actualizado en las
-                    tendencias y avances de mi campo, siempre con el objetivo de aportar valor a cada proyecto en el que
-                    participo.
-                </p>
+                Además, poseo una gran capacidad de comunicación, lo que me permite interactuar de manera clara y
+                eficiente en distintos entornos, favoreciendo el <b style="color: #FFED00;">trabajo en equipo y la
+                    colaboración</b>. Disfruto
+                compartiendo conocimientos y experiencias con quienes me rodean, promoviendo un ambiente de
+                crecimiento
+                mutuo donde la innovación y el aprendizaje sean pilares fundamentales.
+                Mi <b style="color: #FFED00;">compromiso con la excelencia y la mejora continua</b> me impulsa a
+                mantenerme actualizado en las
+                tendencias y avances de mi campo, siempre con el objetivo de aportar valor a cada proyecto en el que
+                participo.
+            </p>
             </div>
-        </div>
+            <div class="col-md-12 col-lg-3 mb-md-0 p-md-4 order-1  order-sm-1 order-md-2">
+                <h5 class="mt-0 ubuntu-bold text-center fs-1 fs-md-1 fs-lg-display-1 mb-4 ">Sobre Mi</h5>
+                <img src="img/FotoCV.jpg" class="w-100 " id="foto" alt="...">
+              </div>
+          </div>
+          
     </section>
     <!--Apartado de mis Habilidades-->
-    <div class="container-fluid c2" style="padding: 45px;color:black;">
+    <div class="container-fluid c2" style="color:black;">
         <section id="HabiYcompe"></section>
-        <div class="row text-end animate">
+        <div class="row text-md-end text-sm-start animate">
             <!--/* arriba | derecha | abajo | izquierda */-->
-            <div class="col">
-                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="width: 800px;">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
-                            <img src="img/carrusel/1.png" class="d-block w-100" alt="...">
+                            <img src="img/carrusel/1.png" class="d-block w-100 " alt="...">
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <img src="img/carrusel/2.png" class="d-block w-100 " alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/carrusel/3.png" class="d-block w-100" alt="...">
+                            <img src="img/carrusel/3.png" class="d-block w-100 " alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
@@ -320,11 +305,11 @@
                     </button>
                 </div>
             </div>
-            <div class="col">
-                <h2 class="text-end ubuntu-bold animate" style="padding-left: 10%;font-size: 55px;">Habilidades y
-                    Competencias</h2>
-                <ul class="text-end list-unstyled">
-                    <li> <b>Resolución avanzada de problemas</b> en entornos de TI.</li>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <h2 class="ubuntu-bold animate fs-1 fs-md-2 fs-lg-1">Habilidades y Competencias</h2>
+
+                <ul class="list-unstyled fs-3 fs-md-6">
+                    <li><b>Resolución avanzada de problemas</b> en entornos de TI.</li>
                     <li><b>Administración de bases de datos</b></li>
                     <li><b>Monitorización y optimización de sistemas.</b></li>
                     <li><b>Programación básica y scripting.</b></li>
@@ -334,35 +319,33 @@
                 </ul>
             </div>
         </div>
-        <hr>
+        <hr class="animate" style="background-color: black;">
         <section id="experiencia"></section>
-
         <div class="row text-start animate ">
-            <div class="col">
-                <h2 class="text-start ubuntu-bold" style="font-size: 55px;">Experiencia Laboral
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <h2 class="ubuntu-bold fs-1 fs-md-2 fs-lg-1">Experiencia Laboral
                 </h2>
-                <h3 class="ubuntu-medium">02/2021-03/2021</h3>
-                <h3 class="ubuntu-medium"><b> Estudiante en prácticas</b></h3>
-                <h3 class="ubuntu-medium"><b>UTIC - Sede Empresariales</b> | Asunción, Paraguay</h3>
-                <ul class="list-unstyled">
+                <h3 class="ubuntu-medium fs-4 fs-md-6">02/2021-03/2021</h3>
+                <h3 class="ubuntu-medium fs-4 fs-md-6"><b> Estudiante en prácticas</b></h3>
+                <h3 class="ubuntu-medium fs-4 fs-md-6"><b>UTIC - Sede Empresariales</b> | Asunción, Paraguay</h3>
+                <ul class="list-unstyled fs-3 fs-md-6">
                     <li>Configuración de ordenadores con Linux para aulas de clase.</li>
                     <li>Establecimiento de conexiones de red entre salas.</li>
                     <li>Reparación de hardware de ordenadores de docentes.</li>
                     <li>Configuración de aplicaciones y resolución de dudas.</li>
                 </ul>
             </div>
-            <div class="col">
-                <div id="carouselExampleIntervalDos" class="carousel slide" data-bs-ride="carousel"
-                    style="width: 800px;">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <div id="carouselExampleIntervalDos" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
-                            <img src="img/carrusel/4.png" class="d-block w-100" alt="...">
+                            <img src="img/carrusel/4.png" class="d-block w-100 " alt="...">
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <img src="img/carrusel/5.png" class="d-block w-100 " alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="img/carrusel/7.png" class="d-block w-100" alt="...">
+                            <img src="img/carrusel/7.png" class="d-block w-100 " alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIntervalDos"
@@ -379,46 +362,43 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid c3" style="padding: 45px;text-align: justi ;background-color: black;color:white;">
+    <div class="container-fluid c3" style="background-color: black;color:white;">
         <section id="proyectos"></section>
         <div class="row animate">
             <h2 class="text-center ubuntu-bold" style="font-size: 55px;">Proyectos</h2>
         </div>
-
         <div class="row text-center animate">
-            <div class="col">
+            <div class="col-md-12 col-lg-4">
                 <h3 class="ubuntu-medium">Interfaz Aracde🕹</h3>
-                <img src="img/capsproyects/gif1.gif" alt="" width="550">
+                <img src="img/capsproyects/gif1.gif" alt="" width="550" class="img-fluid">
                 <p class="ubuntu-regular" style="text-align: justify;">Interfaz arcade con una experiencia inmersiva al
                     estilo clásico. El menú en pixel art, con colores brillantes y animaciones dinámicas, permite
                     navegar fácilmente con joystick o botones por género, año o popularidad. Cada juego muestra una
                     vista previa con portada, descripción y detalles clave.
-
             </div>
-            <div class="col">
+            <div class="col-md-12 col-lg-4">
                 <h3 style="font-family:'SF Pixelate', sans-serif;font-weight: 700;">Web Pixel Car Racer <img
                         src="img/iconPixelCar.png" alt="" width="28px"></h3>
-                <img src="img/capsproyects/gif2.gif" alt="" width="550">
+                <img src="img/capsproyects/gif2.gif" alt="" width="550" class="img-fluid">
                 <p class="ubuntu-regular" style="text-align: justify;">El lugar ideal para fanáticos del juego
                     PixelCarRacer: noticias, guías, trucos, eventos y torneos. Explora autos personalizados, comparte
                     tiempos y descubre estrategias para dominar la pista.
-
                 </p>
             </div>
-            <div class="col">
+            <div class="col-md-12 col-lg-4">
                 <h3 class="ubuntu-medium">The Maze Wizard 🧙‍♂️✨ </h3>
-                <img src="img/capsproyects/gif3.gif" alt="" width="550">
+                <img src="img/capsproyects/gif3.gif" alt="" width="550" class="img-fluid">
                 <p class="ubuntu-regular" style="text-align: justify;">
                     Controla a un poderoso mago en laberintos llenos de misterios, trampas y enemigos. Usa tu magia e
                     inteligencia para encontrar la salida en niveles cada vez más complejos. ¿Completarás tu misión?
                 </p>
             </div>
         </div>
-        <hr class="animate">
+        <hr class="animate" style="background-color: white;">
         <div class="row text-center animate">
-            <div class="col">
+            <div class="col-md-12 col-lg-6">
                 <h3>Arcade</h3>
-                <img src="img/capsproyects/gifArcade.gif" alt="" width="550" height="309">
+                <img src="img/capsproyects/gifArcade.gif" alt="" class="img-fluid" style="width:550px ;height:309px;">
                 <p class="ubuntu-regular" style="text-align: justify;">
                     En el marco de nuestra formación en el ciclo de Administración de Sistemas Informáticos en Red
                     (ASIR), un grupo de alumnos nos embarcamos en un proyecto emocionante: la creación de un arcade
@@ -427,9 +407,9 @@
                     proyectos.S
                 </p>
             </div>
-            <div class="col">
+            <div class="col col-md-12 col-lg-6 ">
                 <h3>Counter-Strike 2</h3>
-                <img src="img/capsproyects/gifCs2.gif" alt="" width="550">
+                <img src="img/capsproyects/gifCs2.gif" alt="" width="550" class="img-fluid">
                 <p class="ubuntu-regular" style="text-align: justify;">
                     Los alumnos del ciclo formativo de Administración de Sistemas Informáticos en Red (ASIR) hemos
                     organizado un torneo de Counter-Strike 2 en LAN, un evento que no solo busca la competencia y el
