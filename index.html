@@ -28,7 +28,9 @@
             color: white;
             background-color: black;
         }
-
+        /*
+        Fuerza a las palabras largas a dividirse en varias líneas si no caben en el ancho disponible.
+        */
         p {
             overflow-wrap: break-word;
         }
@@ -52,19 +54,6 @@
             color: #FFED00;
 
         }
-
-        /*
-        #disponibilidad {
-            display: block;
-            white-space: nowrap;
-            border-radius: 15px;
-            width: 23ch;
-            margin-left: 10px;
-            background-color: #1F2937;
-            border:  green 5px solid;
-
-        }
-*/
         #myname {
             display: block;
             white-space: nowrap;
@@ -99,8 +88,8 @@
         }
 
         .c1 {
-            /* arriba | derecha | abajo | izquierda */
-            padding: 30px 50px 200px 50px;
+                  /* arriba | derecha | abajo | izquierda */
+            padding: 30px       50px    200px   50px;
             /*font-size: 25px;*/
             background-color: black;
 
@@ -108,7 +97,6 @@
         }
 
         .c2 {
-            /*height: 1100px;*/
             padding: 30px 50px 200px 50px;
             font-size: 25px;
             background-color: white;
@@ -116,7 +104,7 @@
         }
 
         .c3 {
-            /*height: 1500px;*/
+            
             padding: 30px 50px 200px 50px;
             background-color: black;
         }
@@ -187,9 +175,9 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark animate " style="background-color: black;">
+        <nav class="navbar navbar-expand-lg navbar-dark animate " style="background-color: black;padding-top: 20px;padding-bottom: 50px;">
             <div class="container-fluid">
-                <a class="navbar-brand animate" href="#">
+                <a class="navbar-brand animate" href="index.html">
                     <img src="img/icon.png" alt="JPlogo" width="130">
                 </a>
 
@@ -219,12 +207,6 @@
         </nav>
     </header>
     <div class="container-fluid" style="background-color: black;padding-top: 20px;padding-bottom: 50px;">
-        <!--
-        <div class="row " id="disponibilidad">
-            <p> Disponible para trabajar </p>
-        </div>
-        -->
-
         <h1 class="text-start  ubuntu-medium animate " id="myname"
             style="padding-top: 20px;padding-bottom: 15px; font-size: 6vw; font-weight: bold;">Juan Pablo Servin
             Paredes</h1>
@@ -243,10 +225,10 @@
     </div>
     <!--Apartado Sobre mi-->
 
-    <section id="sobreMi" class="container-fluid c1 ">
+    <section  class="container-fluid c1 ">
         <hr class="animate" style="background-color: black;">
         <div class="row g-5 position-relative ">
-            <div class="col-md-12 col-lg-9 p-5 ps-md-0 order-2 order-sm-2 order-md-1">
+            <div class="col-md-12 col-lg-9 p-5 ps-md-0 order-2 order-sm-2 order-md-1" id="sobreMi">
               <p class="ubuntu-regular fs-4 justify-content mb-3 ">
                 Soy una persona entusiasta con un firme <b style="color: #FFED00;">compromiso con el aprendizaje
                     continuo</b>, siempre en busca de
@@ -279,8 +261,8 @@
     <div class="container-fluid c2" style="color:black;">
         <section id="HabiYcompe"></section>
         <div class="row text-md-end text-sm-start animate">
-            <!--/* arriba | derecha | abajo | izquierda */-->
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 order-2 order-sm-2 order-md-1">
                 <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
@@ -305,7 +287,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 order-1  order-sm-1 order-md-2">
                 <h2 class="ubuntu-bold animate fs-1 fs-md-2 fs-lg-1">Habilidades y Competencias</h2>
 
                 <ul class="list-unstyled fs-3 fs-md-6">
