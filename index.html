@@ -215,13 +215,57 @@
             en
             Red
         </h2>
-        <a type="button" href="mailto:juanpabloservinparedes2003@gmail.com" target="_blank" role="link"
-            class="btn btn-lg animate" style="background-color:#FFED00; color: black; font-weight: bold;"><i
+        <a type="button"
+            class="btn btn-lg animate" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color:#FFED00; color: black; font-weight: bold;"><i
                 class="bi bi-envelope-arrow-up" style="padding-right:10px ;"></i>
             Contáctame</a>
+            
         <a type="button" href="https://www.linkedin.com/in/juanpabloservin/" target="_blank" role="link"
             class="btn btn-lg animate" style="background-color:white;color: black; font-weight: bold;"><i
                 class="bi bi-linkedin" style="padding-right:10px ;"></i>LinkedIn</a>
+    </div>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black;">Contactame</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="https://formsubmit.co/juanpabloservinparedes2003@gmail.com" method="POST">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label" style="color: black;">Nombre</label>
+                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput2" class="form-label" style="color: black;">Email address</label>
+                            <input type="email" name="email" class="form-control" id="exampleFormControlInput2"
+                                placeholder="nombre@ejemplo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput3" class="form-label" style="color: black;">Asunto</label>
+                            <input type="text" name="subject" class="form-control" id="exampleFormControlInput3"
+                                placeholder="Asunto">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label" style="color: black;">Comentario</label>
+                            <textarea class="form-control" name="comments" id="exampleFormControlTextarea1"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: #FFED00; color: black;">Close</button>
+                            <button type="submit" value="Enviar" class="btn"
+                                style="background-color: #FFED00; color: black;">Enviar</button>
+                                <input type="hidden" name="_next" value="https://practica-iaw-juanpablosps-projects.vercel.app/">
+                                <input type="hidden" name="_captcha" value="false">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!--Apartado Sobre mi-->
 
@@ -229,7 +273,10 @@
         <hr class="animate" style="background-color: black;">
         <div class="row g-5 position-relative ">
             <div class="col-md-12 col-lg-9 p-5 ps-md-0 order-2 order-sm-2 order-md-1 " id="sobreMi">
-              <p class="ubuntu-regular fs-4 justify-content mb-3 animate">
+              <p class="ubuntu-regular fs-4 justify-content mb-3 animate
+              
+              
+              ">
                 Soy una persona entusiasta con un firme <b style="color: #FFED00;">compromiso con el aprendizaje
                     continuo</b>, siempre en busca de
                 nuevas oportunidades para ampliar mis <b style="color: #FFED00;">conocimientos y habilidades</b>. Me
