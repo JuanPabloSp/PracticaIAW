@@ -76,6 +76,15 @@
     hero.addEventListener("mouseleave", () => { tx = 0; ty = 0; kick(); });
   }
 
+  // Botón "Ver otros proyectos": cambia el texto según el estado
+  const otros = document.getElementById("otros-proyectos");
+  const btnOtros = document.getElementById("toggleOtros");
+  if (otros && btnOtros) {
+    const label = btnOtros.querySelector("[data-label]");
+    otros.addEventListener("shown.bs.collapse", () => { label.textContent = "Ocultar otros proyectos"; });
+    otros.addEventListener("hidden.bs.collapse", () => { label.textContent = "Ver otros proyectos (5)"; });
+  }
+
   // Año dinámico en el footer
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
