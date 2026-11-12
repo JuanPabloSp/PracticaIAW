@@ -59,9 +59,9 @@ section.alt { background: var(--bg-alt); }
 #myname {
   display: inline-block; white-space: nowrap; overflow: hidden; max-width: 100%;
   border-right: .08em solid; font-weight: 700; line-height: 1.15; vertical-align: top;
-  font-size: clamp(1.3rem, 6.6vw, 4.5rem);
+  font-size: clamp(1.5rem, 7.2vw, 4.5rem);
 }
-#myname.typing { width: var(--w); animation: typing 2s steps(25), blink .5s infinite step-end alternate; }
+#myname.typing { width: var(--w); animation: typing 2s steps(17), blink .5s infinite step-end alternate; }
 @keyframes typing { from { width: 0; } to { width: var(--w); } }
 @keyframes blink { 50% { border-color: transparent; } }
 
