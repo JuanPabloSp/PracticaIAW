@@ -57,12 +57,12 @@ section.alt { background: var(--bg-alt); }
 /* Hero */
 #inicio { padding-top: 130px; padding-bottom: 60px; }
 #myname {
-  display: inline-block; white-space: nowrap; overflow: hidden; width: 17ch; max-width: 100%;
+  display: inline-block; white-space: nowrap; overflow: hidden; max-width: 100%;
   border-right: .08em solid; font-weight: 700; line-height: 1.15; vertical-align: top;
   font-size: clamp(1.5rem, 7.2vw, 4.5rem);
-  animation: typing 2s steps(17), blink .5s infinite step-end alternate;
 }
-@keyframes typing { from { width: 0; } }
+#myname.typing { width: var(--w); animation: typing 2s steps(17), blink .5s infinite step-end alternate; }
+@keyframes typing { from { width: 0; } to { width: var(--w); } }
 @keyframes blink { 50% { border-color: transparent; } }
 
 /* Sobre mí */
@@ -109,7 +109,6 @@ section.alt { background: var(--bg-alt); }
 
 /* Habilidades */
 .skill-group h3 { font-size: 1.1rem; color: var(--accent); margin-bottom: .75rem; }
-.skill-group h3 i { margin-right: .5rem; }
 
 /* Animaciones de entrada ("la página se va construyendo") */
 .reveal { opacity: 0; transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0s); }
@@ -122,18 +121,12 @@ section.alt { background: var(--bg-alt); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .timeline::before, .section-title::after { opacity: 1; transform: none; transition: none; }
-  #myname { animation: none; border-right: 0; }
+  #myname.typing { animation: none; }
 }
 
 footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
 
 /* Hero ampliado */
-.eyebrow {
-  display: inline-block; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  padding: .35rem .8rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 999px; margin-bottom: 1.2rem;
-}
-.eyebrow i { font-size: .5rem; vertical-align: middle; margin-right: .4rem; animation: pulse 1.6s infinite; }
-@keyframes pulse { 50% { opacity: .25; } }
 .hero-sub { font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--muted); max-width: 40ch; margin-top: 1rem; }
 .section-lead { color: var(--muted); font-size: 1.15rem; margin: -1rem 0 2rem; }
 

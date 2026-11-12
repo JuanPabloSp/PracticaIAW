@@ -44,6 +44,16 @@
     });
   }
 
+  // Titular: mide el ancho real del nombre para que el cursor quede pegado al texto
+  const name = document.getElementById("myname");
+  if (name) {
+    const start = () => {
+      name.style.setProperty("--w", name.scrollWidth + "px");
+      if (!reduce) name.classList.add("typing");
+    };
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+  }
+
   // Año dinámico en el footer
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
