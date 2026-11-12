@@ -85,7 +85,7 @@
     otros.addEventListener("hidden.bs.collapse", () => { label.textContent = "Ver otros proyectos (5)"; });
   }
 
-  // Arquitecturas con scroll: pestañas + diagrama fijo cuyas capas se iluminan por pasos
+  // Arquitecturas con scroll: pestañas + diagrama fijo (escritorio) o mini-diagrama por paso (móvil)
   const archSection = document.getElementById("arquitectura");
   if (archSection) {
     const panes = {};
@@ -93,12 +93,13 @@
     const tabs = archSection.querySelectorAll(".arch-tab");
     const isMobile = () => window.matchMedia("(max-width: 991px)").matches;
     let ctl = null; // controlador del panel activo
+    let miniCount = 0;
 
     const makeController = (pane) => {
       const diagram = pane.querySelector(".scrolly-svg");
       const stepEls = pane.querySelectorAll(".scrolly-step");
       const FULL = diagram.dataset.full.split(" ").map(Number);
-      let current = FULL.slice(), raf = null, io = null;
+      let current = FULL.slice(), raf = null, io = null, ro = null;
       const setVB = (v) => diagram.setAttribute("viewBox", v.map((n) => n.toFixed(1)).join(" "));
       const tweenTo = (target) => {
         if (raf) cancelAnimationFrame(raf);
@@ -116,40 +117,75 @@
         stepEls.forEach((s) => s.classList.toggle("active", s === step));
         const ids = step.dataset.layers.split(" ");
         diagram.querySelectorAll(".layer").forEach((g) => g.classList.toggle("on", ids.includes(g.id)));
-        tweenTo(isMobile() ? step.dataset.focus.split(" ").map(Number) : FULL);
       };
       const observe = () => {
         if (io) io.disconnect();
-        // En móvil el diagrama fijo ocupa la parte alta: la franja activa baja para no quedar tapada
-        const margin = isMobile() ? "-62% 0px -28% 0px" : "-45% 0px -45% 0px";
         io = new IntersectionObserver((entries) => {
           entries.forEach((e) => { if (e.isIntersecting) activate(e.target); });
-        }, { rootMargin: margin, threshold: 0 });
+        }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
         stepEls.forEach((s) => io.observe(s));
       };
-      // Centra el diagrama fijo verticalmente en pantalla (alineado con el texto del paso) en escritorio
+      // Escritorio: centra el diagrama fijo verticalmente en pantalla (alineado con el texto del paso)
       const stage = pane.querySelector(".scrolly-stage");
-      let ro = null;
       const alignStage = () => {
         if (isMobile()) { stage.style.top = ""; return; }
         stage.style.top = Math.max(84, (window.innerHeight - stage.offsetHeight) / 2) + "px";
       };
+      // Móvil: cada paso lleva su propio mini-diagrama, encuadrado a su zona y sin capas ajenas
+      const clearMinis = () => pane.querySelectorAll(".mini-wrap").forEach((m) => m.remove());
+      const buildMinis = () => {
+        clearMinis();
+        stepEls.forEach((step) => {
+          const ids = (step.dataset.mlayers || step.dataset.layers).split(" ");
+          const svg = diagram.cloneNode(true);
+          const vb = step.dataset.focus.split(" ").map(Number);
+          svg.setAttribute("viewBox", vb.join(" "));
+          svg.style.aspectRatio = vb[2] + " / " + vb[3];
+          svg.removeAttribute("id");
+          svg.removeAttribute("aria-labelledby");
+          svg.setAttribute("aria-hidden", "true");
+          svg.querySelectorAll("title").forEach((t) => t.remove());
+          const uid = "m" + (miniCount++);
+          svg.querySelectorAll("marker").forEach((m) => { m.id = m.id + uid; });
+          svg.querySelectorAll("[marker-end],[marker-start]").forEach((el) => {
+            ["marker-end", "marker-start"].forEach((a) => {
+              const v = el.getAttribute(a);
+              if (v) el.setAttribute(a, v.replace(/\)$/, uid + ")"));
+            });
+          });
+          svg.querySelectorAll(".layer").forEach((g) => {
+            g.classList.toggle("on", ids.includes(g.id));
+            g.classList.toggle("off", !ids.includes(g.id));
+            g.removeAttribute("id");
+          });
+          const wrap = document.createElement("div");
+          wrap.className = "mini-wrap";
+          wrap.appendChild(svg);
+          step.insertBefore(wrap, step.firstChild);
+        });
+      };
+      const applyMode = () => {
+        if (isMobile()) { if (io) io.disconnect(); buildMinis(); }
+        else { clearMinis(); observe(); activate(pane.querySelector(".scrolly-step.active") || stepEls[0]); alignStage(); }
+      };
       let lastMobile = isMobile();
       const onResize = () => {
-        alignStage();
-        const act = pane.querySelector(".scrolly-step.active") || stepEls[0];
-        tweenTo(isMobile() ? act.dataset.focus.split(" ").map(Number) : FULL);
-        if (lastMobile !== isMobile()) { lastMobile = isMobile(); observe(); }
+        if (lastMobile !== isMobile()) { lastMobile = isMobile(); applyMode(); }
+        else alignStage();
       };
       return {
         start() {
-          current = FULL.slice(); setVB(current); observe(); activate(stepEls[0]); alignStage();
+          current = FULL.slice(); setVB(current);
+          stepEls.forEach((s) => s.classList.remove("active"));
+          activate(stepEls[0]);
+          applyMode();
           if ("ResizeObserver" in window) { ro = new ResizeObserver(alignStage); ro.observe(stage); }
           window.addEventListener("resize", onResize);
         },
         stop() {
           if (io) io.disconnect(); if (ro) ro.disconnect(); if (raf) cancelAnimationFrame(raf);
           window.removeEventListener("resize", onResize);
+          clearMinis();
         },
       };
     };

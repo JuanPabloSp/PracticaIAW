@@ -280,3 +280,16 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
 .arch-tab:hover { border-color: var(--accent); }
 .arch-tab.active { background: var(--accent); color: #000; border-color: var(--accent); }
 .scrolly-stage .arch { aspect-ratio: auto; }
+
+/* Móvil: sin diagrama fijo; cada paso lleva su mini-diagrama encuadrado */
+.arch .layer.off { display: none; }
+.mini-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: .5rem; margin-bottom: .9rem; }
+.mini-wrap .arch { width: 100%; height: auto; min-width: 0; max-height: 240px; }
+@media (max-width: 991px) {
+  .stage-wrap { display: none; }
+  .scrolly-step { min-height: 0; padding: 1.5rem 0; opacity: 1; justify-content: flex-start; border-bottom: 1px solid var(--border); }
+  .scrolly-step:last-child { border-bottom: 0; }
+  .scrolly-steps { padding-bottom: 0; }
+  .scrolly-step h3 { font-size: 1.25rem; }
+  .scrolly-step p { font-size: 1rem; margin-bottom: 0; }
+}

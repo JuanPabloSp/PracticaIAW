@@ -206,27 +206,27 @@
                 <div class="scrolly" data-arch-pane="comandero" role="tabpanel">
                     <div class="stage-wrap"><div class="scrolly-stage"><svg class="arch scrolly-svg" viewBox="0 0 860 460" data-full="0 0 860 460" style="aspect-ratio:860/460" role="img" aria-labelledby="tc"><title id="tc">Arquitectura simplificada de Comandero Digital</title><defs><marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFED00"/></marker></defs><rect class="zone" x="20" y="30" width="820" height="305" rx="14"/><text x="36" y="52" class="zl">Red local del restaurante</text><g class="layer" id="l-term"><rect class="box " x="40" y="80" width="200" height="58" rx="10"/><text x="140" y="105" text-anchor="middle" class="t1">Terminales de sala</text><text x="140" y="125" text-anchor="middle" class="t2">navegador · tablet / móvil</text><rect class="box " x="40" y="155" width="200" height="58" rx="10"/><text x="140" y="180" text-anchor="middle" class="t1">Caja (TPV)</text><text x="140" y="200" text-anchor="middle" class="t2">navegador</text><rect class="box " x="40" y="230" width="200" height="58" rx="10"/><text x="140" y="255" text-anchor="middle" class="t1">Pantalla de cocina</text><text x="140" y="275" text-anchor="middle" class="t2">navegador</text><text x="140" y="318" text-anchor="middle" class="t2">↻ cola offline: siguen operativas sin red</text><path class="flow" d="M240 109 H330" marker-end="url(#arA)" /><path class="flow" d="M240 184 H330" marker-end="url(#arA)" /><path class="flow" d="M240 259 H330" marker-end="url(#arA)" /></g><g class="layer" id="l-server"><rect class="zone acc" x="330" y="70" width="230" height="240" rx="12"/><text x="445" y="92" text-anchor="middle" class="zl acct">Servidor local · Debian</text><rect class="box " x="350" y="108" width="190" height="70" rx="10"/><text x="445" y="139" text-anchor="middle" class="t1">API REST + WebSocket</text><text x="445" y="159" text-anchor="middle" class="t2">Node.js · Express</text><rect class="box " x="350" y="214" width="190" height="70" rx="10"/><text x="445" y="245" text-anchor="middle" class="t1">Base de datos</text><text x="445" y="265" text-anchor="middle" class="t2">SQLite · modo WAL</text><path class="flow" d="M445 178 V214" marker-end="url(#arA)" /></g><g class="layer" id="l-print"><rect class="box " x="640" y="100" width="180" height="58" rx="10"/><text x="730" y="125" text-anchor="middle" class="t1">Impresora de cocina</text><text x="730" y="145" text-anchor="middle" class="t2">térmica</text><rect class="box " x="640" y="190" width="180" height="58" rx="10"/><text x="730" y="215" text-anchor="middle" class="t1">Impresora de barra</text><text x="730" y="235" text-anchor="middle" class="t2">térmica</text><path class="flow" d="M540 130 H640" marker-end="url(#arA)" /><path class="flow" d="M540 150 C590 150 590 210 640 214" marker-end="url(#arA)" /></g><g class="layer" id="l-backup"><rect class="box " x="330" y="380" width="230" height="56" rx="10"/><text x="445" y="404" text-anchor="middle" class="t1">Copias de seguridad automáticas</text><text x="445" y="424" text-anchor="middle" class="t2">almacenamiento en la nube</text><path class="flow" d="M445 310 V380" marker-end="url(#arA)" /></g><g class="layer" id="l-vpn"><rect class="box " x="40" y="380" width="250" height="56" rx="10"/><text x="165" y="404" text-anchor="middle" class="t1">Acceso remoto de administración</text><text x="165" y="424" text-anchor="middle" class="t2">VPN (Tailscale)</text><path class="flow" d="M200 380 C 240 345, 330 330, 372 300" marker-end="url(#arA)" stroke-dasharray="3 6"/></g><g class="layer" id="l-ci"><rect class="box dash" x="600" y="380" width="240" height="56" rx="10"/><text x="720" y="404" text-anchor="middle" class="t1">Tests automáticos</text><text x="720" y="424" text-anchor="middle" class="t2">29 suites · GitHub Actions</text></g></svg></div></div>
                     <div class="scrolly-steps">
-                        <div class="scrolly-step" data-layers="l-term" data-focus="10 40 480 290">
+                        <div class="scrolly-step" data-layers="l-term" data-focus="20 60 330 280">
                             <span class="step-num">01 / 05</span>
                             <h3>Terminales en el local</h3>
                             <p>Sala, caja y cocina trabajan desde el navegador, sin instalar nada. Cada terminal guarda las comandas en una <b>cola offline</b> y las sincroniza al volver la conexión.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-server l-term" data-focus="240 40 480 290">
+                        <div class="scrolly-step" data-layers="l-server l-term" data-mlayers="l-server" data-focus="300 55 280 270">
                             <span class="step-num">02 / 05</span>
                             <h3>Servidor local · API y datos</h3>
                             <p>Un servidor <b>Node.js + Express</b> en la red del restaurante recibe las comandas y avisa a todas las terminales en <b>tiempo real por WebSocket</b>. Los datos viven en <b>SQLite</b> en modo WAL: rápido y fiable para un local.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-print l-server" data-focus="380 40 480 290">
+                        <div class="scrolly-step" data-layers="l-print l-server" data-mlayers="l-print l-server" data-focus="320 60 530 260">
                             <span class="step-num">03 / 05</span>
                             <h3>Impresión directa</h3>
                             <p>Cada comanda se enruta por destino (cocina o barra) a impresoras térmicas de la red local, sin depender de internet.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-backup l-vpn" data-focus="10 250 600 220">
+                        <div class="scrolly-step" data-layers="l-backup l-vpn" data-focus="20 290 560 160">
                             <span class="step-num">04 / 05</span>
                             <h3>Resiliencia y operación</h3>
                             <p><b>Copias de seguridad automáticas</b> fuera del servidor y un plan de recuperación <b>probado con simulacros</b>. La administración remota se hace solo por <b>VPN</b>. Migré producción a un servidor nuevo sin pérdida de datos, verificado con huellas de integridad.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-ci" data-focus="420 240 440 220">
+                        <div class="scrolly-step" data-layers="l-ci" data-focus="580 360 280 100">
                             <span class="step-num">05 / 05</span>
                             <h3>Calidad</h3>
                             <p><b>29 suites de tests automáticos</b> en GitHub Actions validan cada cambio antes de que llegue al servicio real.</p>
@@ -236,32 +236,32 @@
                 <div class="scrolly" data-arch-pane="cicd" role="tabpanel" hidden>
                     <div class="stage-wrap"><div class="scrolly-stage"><svg class="arch scrolly-svg" viewBox="0 0 860 260" data-full="0 0 860 260" style="aspect-ratio:860/260" role="img" aria-labelledby="tb"><title id="tb">Pipeline de CI/CD con aprobación manual antes de producción</title><defs><marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFED00"/></marker></defs><g class="layer" id="l-src"><rect class="box " x="20" y="50" width="110" height="78" rx="10"/><text x="75" y="85" text-anchor="middle" class="t1">Commit / PR</text><text x="75" y="105" text-anchor="middle" class="t2">cambio en el repo</text></g><g class="layer" id="l-val"><rect class="box " x="160" y="50" width="110" height="78" rx="10"/><text x="215" y="85" text-anchor="middle" class="t1">Validación</text><text x="215" y="105" text-anchor="middle" class="t2">lint + tests</text><path class="flow" d="M130 89 H160" marker-end="url(#arB)" /></g><g class="layer" id="l-plan"><rect class="box " x="300" y="50" width="110" height="78" rx="10"/><text x="355" y="85" text-anchor="middle" class="t1">Plan Terraform</text><text x="355" y="105" text-anchor="middle" class="t2">cambios previstos</text><path class="flow" d="M270 89 H300" marker-end="url(#arB)" /></g><g class="layer" id="l-dev"><rect class="box " x="440" y="50" width="110" height="78" rx="10"/><text x="495" y="85" text-anchor="middle" class="t1">Dev</text><text x="495" y="105" text-anchor="middle" class="t2">despliegue · pruebas</text><path class="flow" d="M410 89 H440" marker-end="url(#arB)" /></g><g class="layer" id="l-appr"><rect class="box accent" x="580" y="50" width="110" height="78" rx="10"/><text x="635" y="85" text-anchor="middle" class="t1">Aprobación</text><text x="635" y="105" text-anchor="middle" class="t2">manual</text><path class="flow" d="M550 89 H580" marker-end="url(#arB)" /></g><g class="layer" id="l-prod"><rect class="box " x="720" y="50" width="110" height="78" rx="10"/><text x="775" y="85" text-anchor="middle" class="t1">Prod</text><text x="775" y="105" text-anchor="middle" class="t2">despliegue · final</text><path class="flow" d="M690 89 H720" marker-end="url(#arB)" /></g><g class="layer" id="l-sec"><rect class="box dash" x="20" y="170" width="410" height="56" rx="10"/><text x="225" y="194" text-anchor="middle" class="t1">Seguridad</text><text x="225" y="214" text-anchor="middle" class="t2">permisos mínimos · secretos por entorno</text></g><g class="layer" id="l-eff"><rect class="box dash" x="440" y="170" width="400" height="56" rx="10"/><text x="640" y="194" text-anchor="middle" class="t1">Eficiencia</text><text x="640" y="214" text-anchor="middle" class="t2">workflows reutilizables · runners self-hosted · matrix</text></g></svg></div></div>
                     <div class="scrolly-steps">
-                        <div class="scrolly-step" data-layers="l-src" data-focus="0 20 430 130">
+                        <div class="scrolly-step" data-layers="l-src" data-focus="0 30 290 120">
                             <span class="step-num">01 / 06</span>
                             <h3>Todo empieza con un cambio</h3>
                             <p>Un commit o una pull request en el repositorio dispara el pipeline. Nada se despliega a mano.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-val l-plan" data-focus="130 20 430 130">
+                        <div class="scrolly-step" data-layers="l-val l-plan" data-focus="130 30 300 120">
                             <span class="step-num">02 / 06</span>
                             <h3>Validar y planificar</h3>
                             <p>Se pasan <b>lint y tests</b> y se genera el <b>plan de Terraform</b>: se ve qué va a cambiar en la infraestructura antes de aplicar nada.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-dev" data-focus="290 20 430 130">
+                        <div class="scrolly-step" data-layers="l-dev" data-focus="380 30 240 120">
                             <span class="step-num">03 / 06</span>
                             <h3>Despliegue en Dev</h3>
                             <p>La infraestructura y la aplicación se despliegan primero en un entorno de pruebas separado del real.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-appr l-prod" data-focus="430 20 430 130">
+                        <div class="scrolly-step" data-layers="l-appr l-prod" data-focus="540 30 320 120">
                             <span class="step-num">04 / 06</span>
                             <h3>Aprobación y producción</h3>
                             <p>Antes de producción hay una <b>aprobación manual</b> en un entorno protegido. Solo entonces se despliega en Prod.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-sec" data-focus="0 130 430 130">
+                        <div class="scrolly-step" data-layers="l-sec" data-focus="0 150 450 100">
                             <span class="step-num">05 / 06</span>
                             <h3>Seguridad por defecto</h3>
                             <p><b>Permisos mínimos</b> para el pipeline y <b>secretos y variables por entorno</b>, sin credenciales en el código.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-eff" data-focus="430 130 430 130">
+                        <div class="scrolly-step" data-layers="l-eff" data-focus="420 150 440 100">
                             <span class="step-num">06 / 06</span>
                             <h3>Eficiencia</h3>
                             <p><b>Workflows reutilizables</b>, <b>matrix builds</b> multiplataforma, <b>runners self-hosted</b> y detección de cambios para monorepo.</p>
@@ -271,27 +271,27 @@
                 <div class="scrolly" data-arch-pane="windows" role="tabpanel" hidden>
                     <div class="stage-wrap"><div class="scrolly-stage"><svg class="arch scrolly-svg" viewBox="0 0 860 380" data-full="0 0 860 380" style="aspect-ratio:860/380" role="img" aria-labelledby="tw"><title id="tw">Entorno Windows Server en alta disponibilidad con Active Directory y Hyper-V</title><defs><marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFED00"/></marker></defs><rect class="zone" x="20" y="30" width="570" height="320" rx="14"/><text x="36" y="52" class="zl">Dominio · Active Directory</text><g class="layer" id="l-hosts"><rect class="zone acc" x="45" y="75" width="230" height="250" rx="12"/><text x="160" y="97" text-anchor="middle" class="zl acct">Host Hyper-V A</text><rect class="box " x="60" y="215" width="200" height="70" rx="10"/><text x="160" y="246" text-anchor="middle" class="t1">VM · Servidores</text><text x="160" y="266" text-anchor="middle" class="t2">aplicaciones y ficheros</text><rect class="zone acc" x="315" y="75" width="230" height="250" rx="12"/><text x="430" y="97" text-anchor="middle" class="zl acct">Host Hyper-V B</text><rect class="box " x="330" y="215" width="200" height="70" rx="10"/><text x="430" y="246" text-anchor="middle" class="t1">VM · Servidores</text><text x="430" y="266" text-anchor="middle" class="t2">aplicaciones y ficheros</text></g><g class="layer" id="l-dc"><rect class="box " x="60" y="115" width="200" height="70" rx="10"/><text x="160" y="146" text-anchor="middle" class="t1">VM · Controlador de dominio</text><text x="160" y="166" text-anchor="middle" class="t2">AD DS + DNS</text><rect class="box " x="330" y="115" width="200" height="70" rx="10"/><text x="430" y="146" text-anchor="middle" class="t1">VM · Controlador de dominio</text><text x="430" y="166" text-anchor="middle" class="t2">AD DS + DNS</text></g><g class="layer" id="l-ha"><path class="flow" d="M275 200 H325" marker-end="url(#arC)" marker-start="url(#arC)"/><text x="300" y="190" text-anchor="middle" class="t2">HA</text></g><g class="layer" id="l-cloud"><rect class="box " x="650" y="100" width="190" height="80" rx="10"/><text x="745" y="136" text-anchor="middle" class="t1">Nube · Azure</text><text x="745" y="156" text-anchor="middle" class="t2">entorno híbrido</text><path class="flow" d="M590 140 H650" marker-end="url(#arC)" /></g><g class="layer" id="l-gpo"><rect class="box dash" x="650" y="230" width="190" height="64" rx="10"/><text x="745" y="258" text-anchor="middle" class="t1">GPO</text><text x="745" y="278" text-anchor="middle" class="t2">directivas de grupo</text><path class="flow" d="M590 262 H650" marker-end="url(#arC)" stroke-dasharray="3 6"/></g></svg></div></div>
                     <div class="scrolly-steps">
-                        <div class="scrolly-step" data-layers="l-dc" data-focus="30 70 520 230">
+                        <div class="scrolly-step" data-layers="l-dc" data-focus="30 70 540 170">
                             <span class="step-num">01 / 05</span>
                             <h3>Identidad centralizada</h3>
                             <p><b>Active Directory y DNS</b> en controladores de dominio: usuarios, equipos y resolución de nombres gestionados desde un único sitio.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-hosts l-dc" data-focus="20 40 540 300">
+                        <div class="scrolly-step" data-layers="l-hosts l-dc" data-focus="20 30 580 330">
                             <span class="step-num">02 / 05</span>
                             <h3>Virtualización con Hyper-V</h3>
                             <p>Los servicios corren en <b>máquinas virtuales</b> repartidas entre dos hosts Hyper-V.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-ha l-hosts l-dc" data-focus="20 90 540 220">
+                        <div class="scrolly-step" data-layers="l-ha l-hosts l-dc" data-focus="40 70 510 270">
                             <span class="step-num">03 / 05</span>
                             <h3>Alta disponibilidad</h3>
                             <p>Si un host falla, los servicios siguen en el otro mediante <b>conmutación por error</b>.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-gpo" data-focus="340 120 520 230">
+                        <div class="scrolly-step" data-layers="l-gpo" data-focus="570 210 290 110">
                             <span class="step-num">04 / 05</span>
                             <h3>Directivas de grupo</h3>
                             <p>Las <b>GPO</b> estandarizan la configuración y la seguridad de los equipos del dominio.</p>
                         </div>
-                        <div class="scrolly-step" data-layers="l-cloud" data-focus="340 40 520 230">
+                        <div class="scrolly-step" data-layers="l-cloud" data-focus="570 80 290 120">
                             <span class="step-num">05 / 05</span>
                             <h3>Entorno híbrido</h3>
                             <p>El dominio se conecta con la nube (<b>Azure</b>) para extender el entorno más allá del servidor local.</p>
