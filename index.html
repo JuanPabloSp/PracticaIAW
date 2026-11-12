@@ -111,7 +111,7 @@
                             <small class="project-kind">Proyecto Fin de Máster</small>
                             <h3>Comandero Digital</h3>
                             <p class="project-desc">TPV para hostelería en uso diario en un restaurante. Servidores Debian propios con acceso por Tailscale y terminales sincronizadas por WebSockets con cola offline. Copias de seguridad automáticas, plan de recuperación probado con simulacros y 29 suites de tests en GitHub Actions.</p>
-                            <button type="button" class="btn btn-sm btn-outline-accent mb-3 arch-btn" data-bs-toggle="modal" data-bs-target="#arch-comandero"><i class="bi bi-diagram-3 me-1"></i>Ver arquitectura</button>
+                            <a href="#arquitectura" class="btn btn-sm btn-outline-accent mb-3 arch-btn"><i class="bi bi-diagram-3 me-1"></i>Ver arquitectura</a>
                             <div class="mt-auto"><span class="badge-tech">Node.js</span><span class="badge-tech">Express</span><span class="badge-tech">SQLite</span><span class="badge-tech">WebSockets</span><span class="badge-tech">Debian</span><span class="badge-tech">systemd</span><span class="badge-tech">Tailscale</span><span class="badge-tech">GitHub Actions</span></div>
                         </article>
                     </div>
@@ -194,8 +194,47 @@
             </div>
         </section>
 
+        <section id="arquitectura" class="alt">
+            <div class="container">
+                <h2 class="section-title">Arquitectura · Comandero Digital</h2>
+                <p class="section-lead reveal up">Haz scroll: cada paso ilumina la parte del sistema de la que hablo. Diagrama simplificado a propósito, sin direcciones ni configuración.</p>
+                <div class="scrolly">
+                    <div class="stage-wrap">
+                        <div class="scrolly-stage"><svg class="arch" id="scrollyDiagram" viewBox="0 0 860 460" role="img" aria-labelledby="t-sc"><title id="t-sc">Arquitectura simplificada de Comandero Digital</title><defs><marker id="arS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFED00"/></marker></defs><rect class="zone" x="20" y="30" width="820" height="305" rx="14"/><text x="36" y="52" class="zl">Red local del restaurante</text><g class="layer" id="l-term"><rect class="box " x="40" y="80" width="200" height="58" rx="10"/><text x="140" y="105" text-anchor="middle" class="t1">Terminales de sala</text><text x="140" y="125" text-anchor="middle" class="t2">navegador · tablet / móvil</text><rect class="box " x="40" y="155" width="200" height="58" rx="10"/><text x="140" y="180" text-anchor="middle" class="t1">Caja (TPV)</text><text x="140" y="200" text-anchor="middle" class="t2">navegador</text><rect class="box " x="40" y="230" width="200" height="58" rx="10"/><text x="140" y="255" text-anchor="middle" class="t1">Pantalla de cocina</text><text x="140" y="275" text-anchor="middle" class="t2">navegador</text><text x="140" y="318" text-anchor="middle" class="t2">↻ cola offline: siguen operativas sin red</text><path class="flow" d="M240 109 H330" marker-end="url(#arS)" /><path class="flow" d="M240 184 H330" marker-end="url(#arS)" /><path class="flow" d="M240 259 H330" marker-end="url(#arS)" /></g><g class="layer" id="l-server"><rect class="zone acc" x="330" y="70" width="230" height="240" rx="12"/><text x="445" y="92" text-anchor="middle" class="zl acct">Servidor local · Debian</text><rect class="box " x="350" y="108" width="190" height="70" rx="10"/><text x="445" y="139" text-anchor="middle" class="t1">API REST + WebSocket</text><text x="445" y="159" text-anchor="middle" class="t2">Node.js · Express</text><rect class="box " x="350" y="214" width="190" height="70" rx="10"/><text x="445" y="245" text-anchor="middle" class="t1">Base de datos</text><text x="445" y="265" text-anchor="middle" class="t2">SQLite · modo WAL</text><path class="flow" d="M445 178 V214" marker-end="url(#arS)" /></g><g class="layer" id="l-print"><rect class="box " x="640" y="100" width="180" height="58" rx="10"/><text x="730" y="125" text-anchor="middle" class="t1">Impresora de cocina</text><text x="730" y="145" text-anchor="middle" class="t2">térmica</text><rect class="box " x="640" y="190" width="180" height="58" rx="10"/><text x="730" y="215" text-anchor="middle" class="t1">Impresora de barra</text><text x="730" y="235" text-anchor="middle" class="t2">térmica</text><path class="flow" d="M540 130 H640" marker-end="url(#arS)" /><path class="flow" d="M540 150 C590 150 590 210 640 214" marker-end="url(#arS)" /></g><g class="layer" id="l-backup"><rect class="box " x="330" y="380" width="230" height="56" rx="10"/><text x="445" y="404" text-anchor="middle" class="t1">Copias de seguridad automáticas</text><text x="445" y="424" text-anchor="middle" class="t2">almacenamiento en la nube</text><path class="flow" d="M445 310 V380" marker-end="url(#arS)" /></g><g class="layer" id="l-vpn"><rect class="box " x="40" y="380" width="250" height="56" rx="10"/><text x="165" y="404" text-anchor="middle" class="t1">Acceso remoto de administración</text><text x="165" y="424" text-anchor="middle" class="t2">VPN (Tailscale)</text><path class="flow" d="M200 380 C 240 345, 330 330, 372 300" marker-end="url(#arS)" stroke-dasharray="3 6"/></g><g class="layer" id="l-ci"><rect class="box dash" x="600" y="380" width="240" height="56" rx="10"/><text x="720" y="404" text-anchor="middle" class="t1">Tests automáticos</text><text x="720" y="424" text-anchor="middle" class="t2">29 suites · GitHub Actions</text></g></svg></div>
+                    </div>
+                    <div class="scrolly-steps">
+                    <div class="scrolly-step" data-layers="l-term" data-focus="10 40 480 290">
+                        <span class="step-num">01 / 05</span>
+                        <h3>Terminales en el local</h3>
+                        <p>Sala, caja y cocina trabajan desde el navegador, sin instalar nada. Cada terminal guarda las comandas en una <b>cola offline</b> y las sincroniza al volver la conexión.</p>
+                    </div>
+                    <div class="scrolly-step" data-layers="l-server l-term" data-focus="240 40 480 290">
+                        <span class="step-num">02 / 05</span>
+                        <h3>Servidor local · API y datos</h3>
+                        <p>Un servidor <b>Node.js + Express</b> en la red del restaurante recibe las comandas y avisa a todas las terminales en <b>tiempo real por WebSocket</b>. Los datos viven en <b>SQLite</b> en modo WAL: rápido y fiable para un local.</p>
+                    </div>
+                    <div class="scrolly-step" data-layers="l-print l-server" data-focus="380 40 480 290">
+                        <span class="step-num">03 / 05</span>
+                        <h3>Impresión directa</h3>
+                        <p>Cada comanda se enruta por destino (cocina o barra) a impresoras térmicas de la red local, sin depender de internet.</p>
+                    </div>
+                    <div class="scrolly-step" data-layers="l-backup l-vpn" data-focus="10 250 600 220">
+                        <span class="step-num">04 / 05</span>
+                        <h3>Resiliencia y operación</h3>
+                        <p><b>Copias de seguridad automáticas</b> fuera del servidor y un plan de recuperación <b>probado con simulacros</b>. La administración remota se hace solo por <b>VPN</b>. Migré producción a un servidor nuevo sin pérdida de datos, verificado con huellas de integridad.</p>
+                    </div>
+                    <div class="scrolly-step" data-layers="l-ci" data-focus="420 240 440 220">
+                        <span class="step-num">05 / 05</span>
+                        <h3>Calidad</h3>
+                        <p><b>29 suites de tests automáticos</b> en GitHub Actions validan cada cambio antes de que llegue al servicio real.</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 4. Trayectoria -->
-        <section id="trayectoria" class="alt">
+        <section id="trayectoria">
             <div class="container">
                 <h2 class="section-title">Trayectoria</h2>
                 <div class="row g-5">
@@ -249,7 +288,7 @@
         </section>
 
         <!-- 5. Habilidades y certificaciones -->
-        <section id="habilidades">
+        <section id="habilidades" class="alt">
             <div class="container">
                 <h2 class="section-title">Habilidades y certificaciones</h2>
                 <h3 class="fs-5 text-secondary mb-3 reveal up">Certificaciones</h3>
@@ -276,7 +315,7 @@
         </section>
 
         <!-- 7. Contacto -->
-        <section id="contacto" class="alt">
+        <section id="contacto">
             <div class="container">
                 <h2 class="section-title">Contacto</h2>
                 <div class="row g-5">
@@ -305,23 +344,6 @@
     </main>
 
     <footer>© <span id="year">2026</span> Juan Pablo Servin · Todos los derechos reservados</footer>
-
-    <div class="modal fade arch-modal" id="arch-comandero" tabindex="-1" aria-labelledby="arch-comandero-l" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title fs-4" id="arch-comandero-l">Arquitectura · Comandero Digital</h2>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="arch-scroll"><svg class="arch" viewBox="0 0 860 460" role="img" aria-labelledby="t-comandero"><title id="t-comandero">Arquitectura simplificada de Comandero Digital</title><defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FFED00"/></marker></defs><rect class="zone" x="20" y="30" width="820" height="305" rx="14"/><text x="36" y="52" class="zl">Red local del restaurante</text><rect class="box " x="40" y="80" width="200" height="58" rx="10"/><text x="140" y="105" text-anchor="middle" class="t1">Terminales de sala</text><text x="140" y="125" text-anchor="middle" class="t2">navegador · tablet / móvil</text><rect class="box " x="40" y="155" width="200" height="58" rx="10"/><text x="140" y="180" text-anchor="middle" class="t1">Caja (TPV)</text><text x="140" y="200" text-anchor="middle" class="t2">navegador</text><rect class="box " x="40" y="230" width="200" height="58" rx="10"/><text x="140" y="255" text-anchor="middle" class="t1">Pantalla de cocina</text><text x="140" y="275" text-anchor="middle" class="t2">navegador</text><text x="140" y="318" text-anchor="middle" class="t2">↻ cola offline: siguen operativas sin red</text><rect class="zone acc" x="330" y="70" width="230" height="240" rx="12"/><text x="445" y="92" text-anchor="middle" class="zl acct">Servidor local · Debian</text><rect class="box " x="350" y="108" width="190" height="70" rx="10"/><text x="445" y="139" text-anchor="middle" class="t1">API REST + WebSocket</text><text x="445" y="159" text-anchor="middle" class="t2">Node.js · Express</text><rect class="box " x="350" y="214" width="190" height="70" rx="10"/><text x="445" y="245" text-anchor="middle" class="t1">Base de datos</text><text x="445" y="265" text-anchor="middle" class="t2">SQLite · modo WAL</text><rect class="box " x="640" y="100" width="180" height="58" rx="10"/><text x="730" y="125" text-anchor="middle" class="t1">Impresora de cocina</text><text x="730" y="145" text-anchor="middle" class="t2">térmica</text><rect class="box " x="640" y="190" width="180" height="58" rx="10"/><text x="730" y="215" text-anchor="middle" class="t1">Impresora de barra</text><text x="730" y="235" text-anchor="middle" class="t2">térmica</text><path class="flow" d="M240 109 H330" marker-end="url(#ar1)" /><path class="flow" d="M240 184 H330" marker-end="url(#ar1)" /><path class="flow" d="M240 259 H330" marker-end="url(#ar1)" /><path class="flow" d="M445 178 V214" marker-end="url(#ar1)" /><path class="flow" d="M540 130 H640" marker-end="url(#ar1)" /><path class="flow" d="M540 150 C590 150 590 210 640 214" marker-end="url(#ar1)" /><rect class="box " x="330" y="380" width="230" height="56" rx="10"/><text x="445" y="404" text-anchor="middle" class="t1">Copias de seguridad automáticas</text><text x="445" y="424" text-anchor="middle" class="t2">almacenamiento en la nube</text><path class="flow" d="M445 310 V380" marker-end="url(#ar1)" /><rect class="box " x="40" y="380" width="250" height="56" rx="10"/><text x="165" y="404" text-anchor="middle" class="t1">Acceso remoto de administración</text><text x="165" y="424" text-anchor="middle" class="t2">VPN (Tailscale)</text><path class="flow" d="M200 380 C 240 345, 330 330, 372 300" marker-end="url(#ar1)" stroke-dasharray="3 6"/><rect class="box dash" x="600" y="380" width="240" height="56" rx="10"/><text x="720" y="404" text-anchor="middle" class="t1">Tests automáticos</text><text x="720" y="424" text-anchor="middle" class="t2">29 suites · GitHub Actions</text></svg></div><p class="arch-hint">Desliza el diagrama para verlo completo →</p>
-                    <h3 class="fs-6 text-uppercase accent mt-4">Decisiones de diseño</h3>
-                    <ul class="arch-list"><li><b>Local-first:</b> el servicio vive en la red del restaurante y sigue funcionando aunque se caiga internet.</li><li><b>Terminales con cola offline:</b> las comandas se guardan y se sincronizan al volver la conexión; el estado se actualiza en tiempo real por WebSocket.</li><li><b>Impresión directa</b> a impresoras térmicas de cocina y barra, enrutada por destino.</li><li><b>Copias automáticas fuera del servidor</b> y plan de recuperación probado con simulacros; migración de producción a un servidor nuevo sin pérdida de datos, verificada con huellas de integridad.</li><li><b>Calidad:</b> 29 suites de tests automáticos en GitHub Actions; administración remota solo mediante VPN.</li></ul>
-                    <p class="arch-note"><i class="bi bi-shield-check me-1"></i>Diagrama simplificado a propósito: no incluye direcciones, nombres de equipos ni configuración.</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade arch-modal" id="arch-cicd" tabindex="-1" aria-labelledby="arch-cicd-l" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">

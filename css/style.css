@@ -230,3 +230,42 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
   .arch { min-width: 700px; }
   .arch-hint { display: block; }
 }
+
+/* Scrollytelling: diagrama fijo + pasos que lo iluminan */
+.scrolly { position: relative; }
+.stage-wrap { display: contents; }
+.scrolly-stage {
+  position: sticky; top: 64px; z-index: 5; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 14px; padding: .75rem; margin-bottom: 1rem;
+}
+.scrolly-stage .arch { aspect-ratio: 860 / 460; }
+.scrolly-step { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; opacity: .3; transition: opacity .4s; }
+.scrolly-step.active { opacity: 1; }
+.scrolly-step h3 { font-size: 1.5rem; margin: .3rem 0 .6rem; }
+.scrolly-step p { color: var(--muted); font-size: 1.05rem; }
+.scrolly-step p b { color: var(--text); }
+.step-num { color: var(--accent); font-weight: 700; letter-spacing: .08em; }
+.scrolly-steps { padding-bottom: 20vh; }
+
+/* capas del diagrama */
+.arch .layer { opacity: .22; transition: opacity .5s; }
+.arch .layer.on { opacity: 1; }
+.arch .layer:not(.on) .flow { animation-play-state: paused; }
+
+@media (min-width: 992px) {
+  .scrolly { display: grid; grid-template-columns: 7fr 5fr; gap: 3rem; }
+  .stage-wrap { display: block; }
+  .scrolly-stage { top: 100px; margin-bottom: 0; background: var(--card); padding: 1.25rem; }
+  .scrolly-steps { padding-bottom: 30vh; }
+}
+@media (max-width: 991px) {
+  .scrolly-stage { background: var(--bg); }
+  .scrolly-step { min-height: 60vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arch .layer, .scrolly-step { transition: none; }
+}
+.scrolly-stage .arch { min-width: 0; width: 100%; }
+@media (max-width: 991px) {
+  .scrolly-step { justify-content: flex-start; padding-top: 12vh; min-height: 65vh; }
+}

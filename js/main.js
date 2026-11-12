@@ -85,6 +85,52 @@
     otros.addEventListener("hidden.bs.collapse", () => { label.textContent = "Ver otros proyectos (5)"; });
   }
 
+  // Scrollytelling del diagrama: cada paso ilumina sus capas (y en móvil enfoca la zona)
+  const diagram = document.getElementById("scrollyDiagram");
+  const stepEls = document.querySelectorAll(".scrolly-step");
+  if (diagram && stepEls.length) {
+    const FULL = [0, 0, 860, 460];
+    const isMobile = () => window.matchMedia("(max-width: 991px)").matches;
+    let current = FULL.slice(), raf = null;
+    const setVB = (v) => diagram.setAttribute("viewBox", v.map((n) => n.toFixed(1)).join(" "));
+    const tweenTo = (target) => {
+      if (raf) cancelAnimationFrame(raf);
+      if (reduce) { current = target.slice(); setVB(current); return; }
+      const from = current.slice(), t0 = performance.now(), D = 600;
+      const tick = (now) => {
+        const k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);
+        current = from.map((v, i) => v + (target[i] - v) * e);
+        setVB(current);
+        if (k < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    };
+    const activate = (step) => {
+      stepEls.forEach((s) => s.classList.toggle("active", s === step));
+      const ids = step.dataset.layers.split(" ");
+      diagram.querySelectorAll(".layer").forEach((g) => g.classList.toggle("on", ids.includes(g.id)));
+      tweenTo(isMobile() ? step.dataset.focus.split(" ").map(Number) : FULL);
+    };
+    let ioSteps = null;
+    const observeSteps = () => {
+      if (ioSteps) ioSteps.disconnect();
+      // En móvil el diagrama fijo ocupa la parte alta: la franja activa baja para no quedar tapada
+      const margin = isMobile() ? "-62% 0px -28% 0px" : "-45% 0px -45% 0px";
+      ioSteps = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) activate(e.target); });
+      }, { rootMargin: margin, threshold: 0 });
+      stepEls.forEach((s) => ioSteps.observe(s));
+    };
+    observeSteps();
+    activate(stepEls[0]);
+    let lastMobile = isMobile();
+    window.addEventListener("resize", () => {
+      const act = document.querySelector(".scrolly-step.active") || stepEls[0];
+      tweenTo(isMobile() ? act.dataset.focus.split(" ").map(Number) : FULL);
+      if (lastMobile !== isMobile()) { lastMobile = isMobile(); observeSteps(); }
+    });
+  }
+
   // Año dinámico en el footer
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
