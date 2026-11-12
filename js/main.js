@@ -134,8 +134,17 @@
       // Escritorio: centra el diagrama fijo verticalmente en pantalla (alineado con el texto del paso)
       const stage = pane.querySelector(".scrolly-stage");
       const alignStage = () => {
-        if (isMobile()) { stage.style.top = (document.getElementById("mainNav") ? document.getElementById("mainNav").offsetHeight : 64) + 8 + "px"; return; }
-        stage.style.top = Math.max(84, (window.innerHeight - stage.offsetHeight) / 2) + "px";
+        const nav = document.getElementById("mainNav"), bar = document.getElementById("archBar");
+        const navHeight = nav ? nav.offsetHeight : 64, barHeight = bar ? bar.offsetHeight : 0;
+        document.documentElement.style.setProperty("--nav-h", navHeight + "px");
+        const minTop = navHeight + barHeight + 10; // por debajo del menú y de la barra fija
+        if (isMobile()) {
+          stage.style.top = minTop + "px";
+          stage.style.height = "calc(100svh - " + (minTop + 10) + "px)";
+          return;
+        }
+        stage.style.height = "";
+        stage.style.top = Math.max(minTop + 6, (window.innerHeight - stage.offsetHeight) / 2) + "px";
       };
       // Móvil: el pie de la escena fija muestra el texto del paso activo
       const caption = document.createElement("div");
@@ -162,7 +171,7 @@
           stepEls.forEach((s) => s.classList.remove("active"));
           activate(stepEls[0]);
           applyMode();
-          if ("ResizeObserver" in window) { ro = new ResizeObserver(alignStage); ro.observe(stage); }
+          if ("ResizeObserver" in window) { ro = new ResizeObserver(alignStage); ro.observe(stage); const b = document.getElementById("archBar"); if (b) ro.observe(b); }
           window.addEventListener("resize", onResize);
         },
         stop() {

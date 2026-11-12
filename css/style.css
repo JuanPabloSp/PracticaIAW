@@ -314,3 +314,19 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
   font-weight: 700; text-transform: uppercase; line-height: .95; letter-spacing: -.01em;
   font-size: clamp(2.6rem, 10vw, 7rem); margin: 0 0 2.5rem;
 }
+
+/* Barra fija de la arquitectura: título + pestañas siempre visibles mientras se avanza */
+.arch-bar {
+  position: sticky; top: var(--nav-h, 76px); z-index: 20;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1.5rem;
+  padding: .6rem 0; margin-bottom: .75rem; background: var(--bg-alt); border-bottom: 1px solid var(--border);
+}
+.arch-bar .section-title { font-size: clamp(1.25rem, 2.6vw, 2rem); margin: 0; padding-bottom: .25rem; }
+.arch-bar .arch-tabs { margin: 0; }
+.arch-tab { white-space: nowrap; }
+@media (max-width: 575px) {
+  .arch-bar { gap: .35rem; padding: .45rem 0; }
+  .arch-bar .arch-tabs { flex-wrap: nowrap; overflow-x: auto; width: 100%; gap: .4rem; scrollbar-width: none; }
+  .arch-bar .arch-tabs::-webkit-scrollbar { display: none; }
+  .arch-tab { padding: .3rem .8rem; font-size: .85rem; }
+}
