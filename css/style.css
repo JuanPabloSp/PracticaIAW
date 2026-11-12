@@ -25,7 +25,7 @@ body {
 }
 
 /* Navbar */
-.navbar { background: rgba(0,0,0,.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.navbar { background: #000; border-bottom: 1px solid var(--border); }
 .navbar .nav-link { font-size: 1.05rem; font-weight: 700; color: var(--text); }
 .navbar .nav-link:hover, .navbar .nav-link.active { color: var(--accent); }
 .navbar-brand img { width: 64px; }
