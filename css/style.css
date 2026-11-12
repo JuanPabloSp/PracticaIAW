@@ -334,3 +334,7 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
   .arch-bar .arch-tabs::-webkit-scrollbar { display: none; }
   .arch-tab { padding: .3rem .8rem; font-size: .85rem; }
 }
+
+/* Tarjetas de proyecto: el botón siempre queda abajo, alineado entre tarjetas */
+.project .project-desc { flex: 1 1 auto; }
+.project .arch-btn { display: block; width: 100%; text-align: center; }
