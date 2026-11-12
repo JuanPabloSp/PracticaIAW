@@ -287,7 +287,8 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
 .mini-wrap .arch { width: 100%; height: auto; min-width: 0; max-height: 240px; }
 @media (max-width: 991px) {
   .stage-wrap { display: none; }
-  .scrolly-step { min-height: 0; padding: 1.5rem 0; opacity: 1; justify-content: flex-start; border-bottom: 1px solid var(--border); }
+  .scrolly-step { min-height: 0; padding: 1.5rem 0; opacity: .3; justify-content: flex-start; border-bottom: 1px solid var(--border); }
+  .scrolly-step.active { opacity: 1; }
   .scrolly-step:last-child { border-bottom: 0; }
   .scrolly-steps { padding-bottom: 0; }
   .scrolly-step h3 { font-size: 1.25rem; }

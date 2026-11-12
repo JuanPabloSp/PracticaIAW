@@ -166,7 +166,7 @@
         });
       };
       const applyMode = () => {
-        if (isMobile()) { if (io) io.disconnect(); buildMinis(); }
+        if (isMobile()) { buildMinis(); observe(); activate(pane.querySelector(".scrolly-step.active") || stepEls[0]); }
         else { clearMinis(); observe(); activate(pane.querySelector(".scrolly-step.active") || stepEls[0]); alignStage(); }
       };
       let lastMobile = isMobile();
@@ -216,44 +216,81 @@
     });
     setArch("comandero", false);
 
-    // Scroll "imantado" (solo escritorio): una rueda/gesto avanza exactamente un paso del diagrama.
+    // Scroll "imantado": un gesto avanza exactamente un paso del diagrama (rueda en escritorio, deslizar en móvil).
     // Fuera del primer y último paso el scroll es el normal, así que nunca atrapa la página.
     const desktopWheel = () => window.matchMedia("(min-width: 992px) and (pointer: fine)").matches;
     let lockUntil = 0;
-    const centers = () => Array.from(panes[activeKey].querySelectorAll(".scrolly-step")).map((s) => {
-      const r = s.getBoundingClientRect();
-      return r.top + window.scrollY + r.height / 2;
+    const navH = () => (document.getElementById("mainNav") ? document.getElementById("mainNav").offsetHeight : 70) + 10;
+    // Posiciones de scroll de cada paso: centrado en escritorio, bajo el menú en móvil
+    const positions = () => Array.from(panes[activeKey].querySelectorAll(".scrolly-step")).map((st) => {
+      const r = st.getBoundingClientRect();
+      return isMobile() ? r.top + window.scrollY - navH() : r.top + window.scrollY + r.height / 2 - window.innerHeight / 2;
     });
-    const goTo = (centerY) => {
-      window.scrollTo({ top: centerY - window.innerHeight / 2, behavior: reduce ? "auto" : "smooth" });
+    const goTo = (y) => {
+      window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
       lockUntil = performance.now() + 750;
     };
+    // Índice del paso al que saltar (o null = dejar el scroll normal)
+    const stepTarget = (pos, down) => {
+      const cur = window.scrollY, half = window.innerHeight * 0.5;
+      const first = pos[0], last = pos[pos.length - 1];
+      if (cur < first - half || cur > last + half) return null;
+      if (cur < first - 8) return down ? 0 : null;
+      if (cur > last + 8) return down ? null : pos.length - 1;
+      let idx = 0;
+      pos.forEach((y, i) => { if (y <= cur + 8) idx = i; });
+      if (down) return idx < pos.length - 1 ? idx + 1 : null;
+      if (cur - pos[idx] > 8) return idx;
+      return idx > 0 ? idx - 1 : null;
+    };
+
+    // Escritorio: rueda / trackpad
     window.addEventListener("wheel", (e) => {
       if (e.ctrlKey || !desktopWheel() || Math.abs(e.deltaY) < 4) return;
+      const pos = positions();
+      if (!pos.length) return;
       const now = performance.now();
-      const c = centers();
-      if (!c.length) return;
-      const mid = window.scrollY + window.innerHeight / 2;
-      const first = c[0], last = c[c.length - 1], half = window.innerHeight * 0.5;
-      const down = e.deltaY > 0;
-      // Fuera de la zona imantada: scroll normal
-      if (mid < first - half || mid > last + half) return;
+      const cur = window.scrollY, half = window.innerHeight * 0.5;
+      if (cur < pos[0] - half || cur > pos[pos.length - 1] + half) return;
       // Mientras dura la animación (y la inercia del gesto) se ignora la rueda
       if (now < lockUntil) { lockUntil = Math.max(lockUntil, now + 140); e.preventDefault(); return; }
-      let target = null;
-      if (mid < first - 8) { if (down) target = 0; }                      // antes del primer paso
-      else if (mid > last + 8) { if (!down) target = c.length - 1; }       // después del último paso
-      else {
-        let idx = 0;
-        c.forEach((y, i) => { if (y <= mid + 8) idx = i; });
-        if (down) { if (idx < c.length - 1) target = idx + 1; }
-        else if (mid - c[idx] > 8) target = idx;
-        else if (idx > 0) target = idx - 1;
-      }
-      if (target === null) return;                                         // extremos: scroll normal
+      const t = stepTarget(pos, e.deltaY > 0);
+      if (t === null) return;
       e.preventDefault();
-      goTo(c[target]);
+      goTo(pos[t]);
     }, { passive: false });
+
+    // Móvil: deslizar con el dedo
+    let tStart = null; // { y, mode: "pending" | "page" | "native", target, pos }
+    document.addEventListener("touchstart", (e) => {
+      tStart = null;
+      if (!isMobile() || e.touches.length !== 1) return;
+      tStart = { y: e.touches[0].clientY, dy: 0, mode: "pending", target: null, pos: null };
+    }, { passive: true });
+    document.addEventListener("touchmove", (e) => {
+      if (!tStart || tStart.mode === "native") return;
+      const dy = e.touches[0].clientY - tStart.y;
+      tStart.dy = dy;
+      if (tStart.mode === "pending") {
+        if (Math.abs(dy) < 8) return;
+        const pos = positions();
+        const half = window.innerHeight * 0.5;
+        const inZone = pos.length && window.scrollY >= pos[0] - half && window.scrollY <= pos[pos.length - 1] + half;
+        if (!inZone) { tStart.mode = "native"; return; }
+        if (performance.now() < lockUntil) { tStart.mode = "page"; tStart.target = null; tStart.pos = pos; }
+        else {
+          const t = stepTarget(pos, dy < 0); // dedo hacia arriba = bajar
+          if (t === null) { tStart.mode = "native"; return; }
+          tStart.mode = "page"; tStart.target = t; tStart.pos = pos;
+        }
+      }
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+    document.addEventListener("touchend", () => {
+      if (tStart && tStart.mode === "page" && tStart.target !== null && Math.abs(tStart.dy) >= 30) goTo(tStart.pos[tStart.target]);
+      tStart = null;
+    }, { passive: true });
+    document.addEventListener("touchcancel", () => { tStart = null; }, { passive: true });
   }
 
   // Año dinámico en el footer
