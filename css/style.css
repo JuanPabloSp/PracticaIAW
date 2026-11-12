@@ -307,3 +307,10 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
   .has-m .scrolly-svg-m { display: block; }
   .scrolly-stage .arch.scrolly-svg-m { aspect-ratio: auto !important; }
 }
+
+/* Contacto: titular grande */
+.contact-eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .75rem; }
+.contact-title {
+  font-weight: 700; text-transform: uppercase; line-height: .95; letter-spacing: -.01em;
+  font-size: clamp(2.6rem, 10vw, 7rem); margin: 0 0 2.5rem;
+}
