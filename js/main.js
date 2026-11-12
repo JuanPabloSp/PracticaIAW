@@ -94,6 +94,7 @@
     const isMobile = () => window.matchMedia("(max-width: 991px)").matches;
     let ctl = null; // controlador del panel activo
     let miniCount = 0;
+    let activeKey = "comandero";
 
     const makeController = (pane) => {
       const diagram = pane.querySelector(".scrolly-svg");
@@ -203,6 +204,7 @@
         t.classList.toggle("active", on);
         t.setAttribute("aria-selected", on ? "true" : "false");
       });
+      activeKey = key;
       ctl = makeController(panes[key]);
       ctl.start();
       if (scroll) scrollToArch();
@@ -213,6 +215,45 @@
       a.addEventListener("click", (e) => { e.preventDefault(); setArch(a.dataset.arch, true); });
     });
     setArch("comandero", false);
+
+    // Scroll "imantado" (solo escritorio): una rueda/gesto avanza exactamente un paso del diagrama.
+    // Fuera del primer y último paso el scroll es el normal, así que nunca atrapa la página.
+    const desktopWheel = () => window.matchMedia("(min-width: 992px) and (pointer: fine)").matches;
+    let lockUntil = 0;
+    const centers = () => Array.from(panes[activeKey].querySelectorAll(".scrolly-step")).map((s) => {
+      const r = s.getBoundingClientRect();
+      return r.top + window.scrollY + r.height / 2;
+    });
+    const goTo = (centerY) => {
+      window.scrollTo({ top: centerY - window.innerHeight / 2, behavior: reduce ? "auto" : "smooth" });
+      lockUntil = performance.now() + 750;
+    };
+    window.addEventListener("wheel", (e) => {
+      if (e.ctrlKey || !desktopWheel() || Math.abs(e.deltaY) < 4) return;
+      const now = performance.now();
+      const c = centers();
+      if (!c.length) return;
+      const mid = window.scrollY + window.innerHeight / 2;
+      const first = c[0], last = c[c.length - 1], half = window.innerHeight * 0.5;
+      const down = e.deltaY > 0;
+      // Fuera de la zona imantada: scroll normal
+      if (mid < first - half || mid > last + half) return;
+      // Mientras dura la animación (y la inercia del gesto) se ignora la rueda
+      if (now < lockUntil) { lockUntil = Math.max(lockUntil, now + 140); e.preventDefault(); return; }
+      let target = null;
+      if (mid < first - 8) { if (down) target = 0; }                      // antes del primer paso
+      else if (mid > last + 8) { if (!down) target = c.length - 1; }       // después del último paso
+      else {
+        let idx = 0;
+        c.forEach((y, i) => { if (y <= mid + 8) idx = i; });
+        if (down) { if (idx < c.length - 1) target = idx + 1; }
+        else if (mid - c[idx] > 8) target = idx;
+        else if (idx > 0) target = idx - 1;
+      }
+      if (target === null) return;                                         // extremos: scroll normal
+      e.preventDefault();
+      goTo(c[target]);
+    }, { passive: false });
   }
 
   // Año dinámico en el footer
