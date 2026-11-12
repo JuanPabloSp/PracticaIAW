@@ -159,3 +159,40 @@ footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
 @media (max-width: 575px) {
   .skill-row { grid-template-columns: 1fr; gap: .4rem; }
 }
+
+/* Cinta de texto en bucle */
+.marquee-wrap { overflow: hidden; }
+.marquee { overflow: hidden; white-space: nowrap; }
+.marquee-track { display: flex; width: max-content; animation: marquee-left 28s linear infinite; }
+.marquee-group { display: flex; align-items: center; flex-shrink: 0; }
+.marquee span { font-weight: 700; font-style: italic; text-transform: uppercase; font-size: clamp(1.6rem, 5vw, 3.4rem); padding: .35em .5em; line-height: 1; }
+.marquee .sep { color: #ff4d00; font-style: normal; font-size: .6em; padding: 0 .4em; }
+.marquee-fill { background: var(--accent); color: #000; }
+.marquee-fill .sep { color: #000; }
+.marquee-outline { background: var(--bg); color: transparent; }
+.marquee-outline span:not(.sep) { -webkit-text-stroke: 1.5px #fff; }
+.marquee-outline .sep { color: var(--accent); }
+.marquee-outline .marquee-track { animation: marquee-right 36s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+/* Insignias flotando */
+.cert-float { display: inline-block; animation: float-y 7s ease-in-out infinite; }
+.cert-grid > div:nth-child(2) .cert-float { animation-delay: -1.4s; }
+.cert-grid > div:nth-child(3) .cert-float { animation-delay: -2.8s; }
+.cert-grid > div:nth-child(4) .cert-float { animation-delay: -4.2s; }
+.cert-grid > div:nth-child(5) .cert-float { animation-delay: -5.6s; }
+.cert:hover .cert-float { animation-play-state: paused; }
+@keyframes float-y {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-12px) rotate(-2deg); }
+}
+
+/* Titular que sigue al ratón */
+#heroTitle { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .cert-float { animation: none; }
+  .marquee-wrap { overflow-x: auto; }
+}

@@ -54,6 +54,28 @@
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
   }
 
+  // Titular que sigue al ratón con retraso suave (solo punteros finos)
+  const hero = document.getElementById("inicio");
+  const title = document.getElementById("heroTitle");
+  if (hero && title && !reduce && window.matchMedia("(pointer: fine)").matches) {
+    const FX = 40, FY = 20, EASE = 0.07;
+    let cx = 0, cy = 0, tx = 0, ty = 0, running = false;
+    const loop = () => {
+      cx += (tx - cx) * EASE; cy += (ty - cy) * EASE;
+      title.style.transform = `translate(${cx.toFixed(2)}px, ${cy.toFixed(2)}px)`;
+      if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) requestAnimationFrame(loop);
+      else running = false;
+    };
+    const kick = () => { if (!running) { running = true; requestAnimationFrame(loop); } };
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * FX;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * FY;
+      kick();
+    });
+    hero.addEventListener("mouseleave", () => { tx = 0; ty = 0; kick(); });
+  }
+
   // Año dinámico en el footer
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
