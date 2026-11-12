@@ -85,50 +85,83 @@
     otros.addEventListener("hidden.bs.collapse", () => { label.textContent = "Ver otros proyectos (5)"; });
   }
 
-  // Scrollytelling del diagrama: cada paso ilumina sus capas (y en móvil enfoca la zona)
-  const diagram = document.getElementById("scrollyDiagram");
-  const stepEls = document.querySelectorAll(".scrolly-step");
-  if (diagram && stepEls.length) {
-    const FULL = [0, 0, 860, 460];
+  // Arquitecturas con scroll: pestañas + diagrama fijo cuyas capas se iluminan por pasos
+  const archSection = document.getElementById("arquitectura");
+  if (archSection) {
+    const panes = {};
+    archSection.querySelectorAll("[data-arch-pane]").forEach((el) => { panes[el.dataset.archPane] = el; });
+    const tabs = archSection.querySelectorAll(".arch-tab");
     const isMobile = () => window.matchMedia("(max-width: 991px)").matches;
-    let current = FULL.slice(), raf = null;
-    const setVB = (v) => diagram.setAttribute("viewBox", v.map((n) => n.toFixed(1)).join(" "));
-    const tweenTo = (target) => {
-      if (raf) cancelAnimationFrame(raf);
-      if (reduce) { current = target.slice(); setVB(current); return; }
-      const from = current.slice(), t0 = performance.now(), D = 600;
-      const tick = (now) => {
-        const k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);
-        current = from.map((v, i) => v + (target[i] - v) * e);
-        setVB(current);
-        if (k < 1) raf = requestAnimationFrame(tick);
+    let ctl = null; // controlador del panel activo
+
+    const makeController = (pane) => {
+      const diagram = pane.querySelector(".scrolly-svg");
+      const stepEls = pane.querySelectorAll(".scrolly-step");
+      const FULL = diagram.dataset.full.split(" ").map(Number);
+      let current = FULL.slice(), raf = null, io = null;
+      const setVB = (v) => diagram.setAttribute("viewBox", v.map((n) => n.toFixed(1)).join(" "));
+      const tweenTo = (target) => {
+        if (raf) cancelAnimationFrame(raf);
+        if (reduce) { current = target.slice(); setVB(current); return; }
+        const from = current.slice(), t0 = performance.now(), D = 600;
+        const tick = (now) => {
+          const k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);
+          current = from.map((v, i) => v + (target[i] - v) * e);
+          setVB(current);
+          if (k < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
       };
-      raf = requestAnimationFrame(tick);
+      const activate = (step) => {
+        stepEls.forEach((s) => s.classList.toggle("active", s === step));
+        const ids = step.dataset.layers.split(" ");
+        diagram.querySelectorAll(".layer").forEach((g) => g.classList.toggle("on", ids.includes(g.id)));
+        tweenTo(isMobile() ? step.dataset.focus.split(" ").map(Number) : FULL);
+      };
+      const observe = () => {
+        if (io) io.disconnect();
+        // En móvil el diagrama fijo ocupa la parte alta: la franja activa baja para no quedar tapada
+        const margin = isMobile() ? "-62% 0px -28% 0px" : "-45% 0px -45% 0px";
+        io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) activate(e.target); });
+        }, { rootMargin: margin, threshold: 0 });
+        stepEls.forEach((s) => io.observe(s));
+      };
+      let lastMobile = isMobile();
+      const onResize = () => {
+        const act = pane.querySelector(".scrolly-step.active") || stepEls[0];
+        tweenTo(isMobile() ? act.dataset.focus.split(" ").map(Number) : FULL);
+        if (lastMobile !== isMobile()) { lastMobile = isMobile(); observe(); }
+      };
+      return {
+        start() { current = FULL.slice(); setVB(current); observe(); activate(stepEls[0]); window.addEventListener("resize", onResize); },
+        stop() { if (io) io.disconnect(); if (raf) cancelAnimationFrame(raf); window.removeEventListener("resize", onResize); },
+      };
     };
-    const activate = (step) => {
-      stepEls.forEach((s) => s.classList.toggle("active", s === step));
-      const ids = step.dataset.layers.split(" ");
-      diagram.querySelectorAll(".layer").forEach((g) => g.classList.toggle("on", ids.includes(g.id)));
-      tweenTo(isMobile() ? step.dataset.focus.split(" ").map(Number) : FULL);
+
+    const scrollToArch = () => {
+      const top = archSection.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
     };
-    let ioSteps = null;
-    const observeSteps = () => {
-      if (ioSteps) ioSteps.disconnect();
-      // En móvil el diagrama fijo ocupa la parte alta: la franja activa baja para no quedar tapada
-      const margin = isMobile() ? "-62% 0px -28% 0px" : "-45% 0px -45% 0px";
-      ioSteps = new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) activate(e.target); });
-      }, { rootMargin: margin, threshold: 0 });
-      stepEls.forEach((s) => ioSteps.observe(s));
+    const setArch = (key, scroll) => {
+      if (!panes[key]) return;
+      if (ctl) ctl.stop();
+      Object.entries(panes).forEach(([k, el]) => { el.hidden = k !== key; });
+      tabs.forEach((t) => {
+        const on = t.dataset.arch === key;
+        t.classList.toggle("active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      ctl = makeController(panes[key]);
+      ctl.start();
+      if (scroll) scrollToArch();
     };
-    observeSteps();
-    activate(stepEls[0]);
-    let lastMobile = isMobile();
-    window.addEventListener("resize", () => {
-      const act = document.querySelector(".scrolly-step.active") || stepEls[0];
-      tweenTo(isMobile() ? act.dataset.focus.split(" ").map(Number) : FULL);
-      if (lastMobile !== isMobile()) { lastMobile = isMobile(); observeSteps(); }
+    tabs.forEach((t) => t.addEventListener("click", () => setArch(t.dataset.arch, false)));
+    // Botones "Ver arquitectura" de las tarjetas de proyecto
+    document.querySelectorAll("a[data-arch]").forEach((a) => {
+      a.addEventListener("click", (e) => { e.preventDefault(); setArch(a.dataset.arch, true); });
     });
+    setArch("comandero", false);
   }
 
   // Año dinámico en el footer
