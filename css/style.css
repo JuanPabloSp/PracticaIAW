@@ -1,0 +1,156 @@
+:root {
+  --accent: #FFED00;
+  --bg: #000;
+  --bg-alt: #0d0d0d;
+  --card: #151515;
+  --border: #2a2a2a;
+  --text: #fff;
+  --muted: #b5b5b5;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+main { overflow-x: clip; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Ubuntu", sans-serif;
+}
+
+/* Barra de progreso de scroll */
+#scrollProgress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 100%;
+  background: var(--accent); transform-origin: left; transform: scaleX(0);
+  z-index: 2000;
+}
+
+/* Navbar */
+.navbar { background: rgba(0,0,0,.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.navbar .nav-link { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: var(--accent); }
+.navbar-brand img { width: 64px; }
+
+section { padding: 70px 0; scroll-margin-top: 70px; }
+@media (max-width: 767px) {
+  section { padding: 48px 0; }
+  #inicio { padding-top: 100px; padding-bottom: 40px; }
+  .navbar-brand img { width: 48px; }
+  .navbar .nav-link { padding: .6rem 0; }
+}
+section.alt { background: var(--bg-alt); }
+
+.section-title {
+  font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 2.5rem;
+  display: inline-block; position: relative; padding-bottom: .5rem;
+}
+.section-title::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 4px; width: 100%;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .8s .3s ease;
+}
+.section-title.show::after { transform: scaleX(1); }
+
+.accent { color: var(--accent); }
+.btn-accent { background: var(--accent); color: #000; font-weight: 700; border: 0; }
+.btn-accent:hover { background: #fff; color: #000; }
+
+/* Hero */
+#inicio { padding-top: 130px; padding-bottom: 60px; }
+#myname {
+  display: inline-block; white-space: nowrap; overflow: hidden; width: 17ch; max-width: 100%;
+  border-right: .08em solid; font-weight: 700; line-height: 1.15; vertical-align: top;
+  font-size: clamp(1.5rem, 7.2vw, 4.5rem);
+  animation: typing 2s steps(17), blink .5s infinite step-end alternate;
+}
+@keyframes typing { from { width: 0; } }
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* Sobre mí */
+#foto { border-radius: 50%; border: 10px solid #fff; }
+.about-text b { color: var(--accent); }
+
+/* Tarjetas */
+.card-dark {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.5rem; height: 100%; transition: transform .25s, border-color .25s;
+}
+.card-dark:hover { transform: translateY(-6px); border-color: var(--accent); }
+.badge-tech {
+  display: inline-block; font-size: .8rem; padding: .25rem .65rem; margin: .15rem .15rem 0 0;
+  border: 1px solid var(--accent); color: var(--accent); border-radius: 999px;
+}
+.project-media { width: 100%; border-radius: 10px; margin-bottom: 1rem; }
+.project-desc { color: var(--muted); text-align: left; }
+
+/* Línea de tiempo */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 3px;
+  background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 1.2s ease;
+}
+.timeline.show::before { transform: scaleY(1); }
+.timeline-item { position: relative; margin-bottom: 2.5rem; }
+.timeline-item::before {
+  content: ""; position: absolute; left: -2rem; top: .45rem; width: 15px; height: 15px;
+  border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
+}
+.alt .timeline-item::before { box-shadow: 0 0 0 4px var(--bg-alt); }
+.timeline-date { color: var(--accent); font-weight: 700; }
+.timeline ul { color: var(--muted); padding-left: 1.2rem; }
+
+/* Certificaciones (efecto tilt 3D) */
+.cert-grid { perspective: 1200px; }
+.cert { text-align: center; cursor: default; perspective: 800px; }
+.cert-visual { display: inline-block; transform-style: preserve-3d; transition: transform .08s ease-out; }
+.cert i.cert-visual { font-size: 2.6rem; color: var(--accent); }
+.cert img.cert-visual { width: 120px; max-width: 100%; height: 120px; object-fit: contain; }
+.cert h3 { font-size: 1.05rem; margin-top: .8rem; }
+.cert small { color: var(--muted); }
+
+/* Habilidades */
+.skill-group h3 { font-size: 1.1rem; color: var(--accent); margin-bottom: .75rem; }
+.skill-group h3 i { margin-right: .5rem; }
+
+/* Animaciones de entrada ("la página se va construyendo") */
+.reveal { opacity: 0; transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0s); }
+.reveal.up { transform: translateY(50px); }
+.reveal.left { transform: translateX(-60px); }
+.reveal.right { transform: translateX(60px); }
+.reveal.scale { transform: scale(.85); }
+.reveal.show { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .timeline::before, .section-title::after { opacity: 1; transform: none; transition: none; }
+  #myname { animation: none; border-right: 0; }
+}
+
+footer { background: #fff; color: #000; text-align: center; padding: 1rem; }
+
+/* Hero ampliado */
+.eyebrow {
+  display: inline-block; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .35rem .8rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 999px; margin-bottom: 1.2rem;
+}
+.eyebrow i { font-size: .5rem; vertical-align: middle; margin-right: .4rem; animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.hero-sub { font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--muted); max-width: 40ch; margin-top: 1rem; }
+.section-lead { color: var(--muted); font-size: 1.15rem; margin: -1rem 0 2rem; }
+
+/* Principios */
+.principle { border-top: 3px solid var(--accent); padding-top: 1rem; height: 100%; }
+.principle .num { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+.principle h3 { font-size: 1.25rem; margin: .4rem 0; }
+.principle p { color: var(--muted); margin: 0; }
+
+/* Tarjetas de proyecto uniformes */
+.project { display: flex; flex-direction: column; }
+.project-icon { font-size: 2.4rem; color: var(--accent); margin-bottom: .5rem; }
+.project-kind { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-size: .75rem; }
+.project h3 { font-size: 1.3rem; margin: .3rem 0 .6rem; }
+.project-media { aspect-ratio: 16 / 9; object-fit: cover; }
+
+.timeline-date .kind {
+  margin-left: .6rem; font-size: .7rem; padding: .1rem .5rem; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--border); color: var(--muted); text-transform: uppercase;
+}
