@@ -206,6 +206,16 @@
     });
     setArch("comandero", false);
 
+    // El título de la barra fija solo aparece cuando el título grande ya ha salido por arriba
+    const bigTitle = archSection.querySelector(".container > .section-title");
+    const archBar = document.getElementById("archBar");
+    if (bigTitle && archBar && "IntersectionObserver" in window) {
+      const navHeight = () => (document.getElementById("mainNav") ? document.getElementById("mainNav").offsetHeight : 70);
+      new IntersectionObserver((entries) => {
+        entries.forEach((e) => archBar.classList.toggle("title-shown", !e.isIntersecting && e.boundingClientRect.bottom < navHeight() + 10));
+      }, { rootMargin: "-" + (navHeight() + 4) + "px 0px 0px 0px", threshold: 0 }).observe(bigTitle);
+    }
+
     // Scroll "imantado": un gesto avanza exactamente un paso del diagrama (rueda en escritorio, deslizar en móvil).
     // Fuera del primer y último paso el scroll es el normal, así que nunca atrapa la página.
     const desktopWheel = () => window.matchMedia("(min-width: 992px) and (pointer: fine)").matches;
