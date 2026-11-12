@@ -98,6 +98,8 @@
 
     const makeController = (pane) => {
       const diagram = pane.querySelector(".scrolly-svg");
+      const mobileSvg = pane.querySelector(".scrolly-svg-m");
+      const useMobileSvg = () => isMobile() && !!mobileSvg;
       const stepEls = pane.querySelectorAll(".scrolly-step");
       const FULL = diagram.dataset.full.split(" ").map(Number);
       let current = FULL.slice(), raf = null, io = null, ro = null;
@@ -117,7 +119,10 @@
       const activate = (step) => {
         stepEls.forEach((s) => s.classList.toggle("active", s === step));
         const ids = step.dataset.layers.split(" ");
-        diagram.querySelectorAll(".layer").forEach((g) => g.classList.toggle("on", ids.includes(g.id)));
+        pane.querySelectorAll(".layer").forEach((g) => g.classList.toggle("on", ids.includes(g.dataset.layer)));
+        if (typeof fillCaption === "function") fillCaption(step);
+        if (useMobileSvg()) { if (raf) cancelAnimationFrame(raf); }
+        else tweenTo(isMobile() ? step.dataset.focus.split(" ").map(Number) : FULL);
       };
       const observe = () => {
         if (io) io.disconnect();
@@ -129,45 +134,22 @@
       // Escritorio: centra el diagrama fijo verticalmente en pantalla (alineado con el texto del paso)
       const stage = pane.querySelector(".scrolly-stage");
       const alignStage = () => {
-        if (isMobile()) { stage.style.top = ""; return; }
+        if (isMobile()) { stage.style.top = (document.getElementById("mainNav") ? document.getElementById("mainNav").offsetHeight : 64) + 8 + "px"; return; }
         stage.style.top = Math.max(84, (window.innerHeight - stage.offsetHeight) / 2) + "px";
       };
-      // Móvil: cada paso lleva su propio mini-diagrama, encuadrado a su zona y sin capas ajenas
-      const clearMinis = () => pane.querySelectorAll(".mini-wrap").forEach((m) => m.remove());
-      const buildMinis = () => {
-        clearMinis();
-        stepEls.forEach((step) => {
-          const ids = (step.dataset.mlayers || step.dataset.layers).split(" ");
-          const svg = diagram.cloneNode(true);
-          const vb = step.dataset.focus.split(" ").map(Number);
-          svg.setAttribute("viewBox", vb.join(" "));
-          svg.style.aspectRatio = vb[2] + " / " + vb[3];
-          svg.removeAttribute("id");
-          svg.removeAttribute("aria-labelledby");
-          svg.setAttribute("aria-hidden", "true");
-          svg.querySelectorAll("title").forEach((t) => t.remove());
-          const uid = "m" + (miniCount++);
-          svg.querySelectorAll("marker").forEach((m) => { m.id = m.id + uid; });
-          svg.querySelectorAll("[marker-end],[marker-start]").forEach((el) => {
-            ["marker-end", "marker-start"].forEach((a) => {
-              const v = el.getAttribute(a);
-              if (v) el.setAttribute(a, v.replace(/\)$/, uid + ")"));
-            });
-          });
-          svg.querySelectorAll(".layer").forEach((g) => {
-            g.classList.toggle("on", ids.includes(g.id));
-            g.classList.toggle("off", !ids.includes(g.id));
-            g.removeAttribute("id");
-          });
-          const wrap = document.createElement("div");
-          wrap.className = "mini-wrap";
-          wrap.appendChild(svg);
-          step.insertBefore(wrap, step.firstChild);
-        });
+      // Móvil: el pie de la escena fija muestra el texto del paso activo
+      const caption = document.createElement("div");
+      caption.className = "scene-caption";
+      caption.setAttribute("aria-live", "polite");
+      stage.appendChild(caption);
+      const fillCaption = (step) => {
+        caption.innerHTML = '<span class="step-num">' + step.querySelector(".step-num").textContent + "</span><h3>" +
+          step.querySelector("h3").innerHTML + "</h3><p>" + step.querySelector("p").innerHTML + "</p>";
       };
       const applyMode = () => {
-        if (isMobile()) { buildMinis(); observe(); activate(pane.querySelector(".scrolly-step.active") || stepEls[0]); }
-        else { clearMinis(); observe(); activate(pane.querySelector(".scrolly-step.active") || stepEls[0]); alignStage(); }
+        observe();
+        activate(pane.querySelector(".scrolly-step.active") || stepEls[0]);
+        alignStage();
       };
       let lastMobile = isMobile();
       const onResize = () => {
@@ -186,7 +168,6 @@
         stop() {
           if (io) io.disconnect(); if (ro) ro.disconnect(); if (raf) cancelAnimationFrame(raf);
           window.removeEventListener("resize", onResize);
-          clearMinis();
         },
       };
     };
@@ -224,7 +205,7 @@
     // Posiciones de scroll de cada paso: centrado en escritorio, bajo el menú en móvil
     const positions = () => Array.from(panes[activeKey].querySelectorAll(".scrolly-step")).map((st) => {
       const r = st.getBoundingClientRect();
-      return isMobile() ? r.top + window.scrollY - navH() : r.top + window.scrollY + r.height / 2 - window.innerHeight / 2;
+      return r.top + window.scrollY + r.height / 2 - window.innerHeight / 2;
     });
     const goTo = (y) => {
       window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
