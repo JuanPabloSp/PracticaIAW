@@ -127,15 +127,30 @@
         }, { rootMargin: margin, threshold: 0 });
         stepEls.forEach((s) => io.observe(s));
       };
+      // Centra el diagrama fijo verticalmente en pantalla (alineado con el texto del paso) en escritorio
+      const stage = pane.querySelector(".scrolly-stage");
+      let ro = null;
+      const alignStage = () => {
+        if (isMobile()) { stage.style.top = ""; return; }
+        stage.style.top = Math.max(84, (window.innerHeight - stage.offsetHeight) / 2) + "px";
+      };
       let lastMobile = isMobile();
       const onResize = () => {
+        alignStage();
         const act = pane.querySelector(".scrolly-step.active") || stepEls[0];
         tweenTo(isMobile() ? act.dataset.focus.split(" ").map(Number) : FULL);
         if (lastMobile !== isMobile()) { lastMobile = isMobile(); observe(); }
       };
       return {
-        start() { current = FULL.slice(); setVB(current); observe(); activate(stepEls[0]); window.addEventListener("resize", onResize); },
-        stop() { if (io) io.disconnect(); if (raf) cancelAnimationFrame(raf); window.removeEventListener("resize", onResize); },
+        start() {
+          current = FULL.slice(); setVB(current); observe(); activate(stepEls[0]); alignStage();
+          if ("ResizeObserver" in window) { ro = new ResizeObserver(alignStage); ro.observe(stage); }
+          window.addEventListener("resize", onResize);
+        },
+        stop() {
+          if (io) io.disconnect(); if (ro) ro.disconnect(); if (raf) cancelAnimationFrame(raf);
+          window.removeEventListener("resize", onResize);
+        },
       };
     };
 
